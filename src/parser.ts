@@ -33,7 +33,7 @@ export function start(sourcecode: string) {
   });
   const { code } = generate(ast, {
     jsescOption: {
-      minimal: true,
+      minimal: false,
     },
   });
   return code;
