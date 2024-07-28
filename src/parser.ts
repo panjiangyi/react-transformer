@@ -10,7 +10,7 @@ const createParentJsxElement = (childNode: t.JSXElement) => {
   return t.jsxElement(
     t.jsxOpeningElement(t.jsxIdentifier("section"), []),
     t.jsxClosingElement(t.jsxIdentifier("section")),
-    [childNode],
+    [t.jsxText("\n  "), childNode, t.jsxText("\n")],
     false
   );
 };
@@ -37,6 +37,10 @@ export function start(sourcecode: string, start: number) {
     jsescOption: {
       minimal: false,
     },
+    compact: false, // 不压缩输出
+    minified: false, // 不生成最小化代码
+    concise: false, // 不省略不必要的空格和行
+    retainLines: true, // 保留原始代码中的行号
   });
   return code;
 }
