@@ -8,8 +8,8 @@ import template from "@babel/template";
 // 创建一个新的父JSXElement节点
 const createParentJsxElement = (childNode: t.JSXElement) => {
   return t.jsxElement(
-    t.jsxOpeningElement(t.jsxIdentifier("section"), []),
-    t.jsxClosingElement(t.jsxIdentifier("section")),
+    t.jsxOpeningElement(t.jsxIdentifier("div"), []),
+    t.jsxClosingElement(t.jsxIdentifier("div")),
     [t.jsxText("\n  "), childNode, t.jsxText("\n")],
     false
   );
