@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
@@ -14,18 +15,19 @@ const createParentJsxElement = (childNode: t.JSXElement) => {
   );
 };
 
-export function start(sourcecode: string) {
+export function start(sourcecode: string, start: number) {
   const ast = parse(sourcecode, { plugins: ["jsx"] });
   traverse(ast, {
     JSXElement(path) {
       try {
-        // const text = path.toString();
-        // console.log(text);
-        if (path?.node?.openingElement?.name?.name === "a") {
-          const parentJsxElement = createParentJsxElement(path.node);
-          path.replaceWith(parentJsxElement);
-          path.skip();
+        const _start = path.node.openingElement.start ?? Infinity;
+        const _end = path.node.openingElement.end ?? -Infinity;
+        if (start < _start || start > _end) {
+          return;
         }
+        const parentJsxElement = createParentJsxElement(path.node);
+        path.replaceWith(parentJsxElement);
+        path.skip();
       } catch (error) {
         console.error(error);
       }

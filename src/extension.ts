@@ -62,7 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
           document.positionAt(document.getText().length)
         );
 
-        const newCode = start(sourceCode);
+        const newCode = start(sourceCode, offset);
         editor.edit((builder) => {
           builder.replace(fullTextRange, newCode);
         });
