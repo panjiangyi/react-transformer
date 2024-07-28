@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import { start } from "./parser";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -46,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
       // 获取当前活动的文本编辑器
       const editor = vscode.window.activeTextEditor;
       if (editor) {
+        const sourceCode = editor.document.getText();
         // 获取光标位置
         const position = editor.selection.active;
 
@@ -54,6 +56,16 @@ export function activate(context: vscode.ExtensionContext) {
         const column = position.character;
         const document = editor.document;
         const offset = document.offsetAt(position);
+
+        const fullTextRange = new vscode.Range(
+          document.positionAt(0),
+          document.positionAt(document.getText().length)
+        );
+
+        const newCode = start(sourceCode);
+        editor.edit((builder) => {
+          builder.replace(fullTextRange, newCode);
+        });
 
         // 输出行号和列号
         vscode.window.showInformationMessage(
