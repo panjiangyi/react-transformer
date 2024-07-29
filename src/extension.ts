@@ -34,9 +34,13 @@ const createCommand = (
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  createCommand("warp_with_div", wrapWithDiv);
-  createCommand("swap_with_sibiling", SwapWithSibling);
-  createCommand("swap_with_parent", swapParentChild);
+  context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
+  context.subscriptions.push(
+    createCommand("swap_with_sibiling", SwapWithSibling)
+  );
+  context.subscriptions.push(
+    createCommand("swap_with_parent", swapParentChild)
+  );
 }
 
 // This method is called when your extension is deactivated
