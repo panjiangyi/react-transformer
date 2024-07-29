@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { wrapWithDiv, SwitchWithSibling } from "./parser";
+import { wrapWithDiv, SwitchWithSibling, swapParentChild } from "./parser";
 const createCommand = (
   name: string,
   implementation: (sourcecode: string, start: number) => string
@@ -36,6 +36,7 @@ const createCommand = (
 export function activate(context: vscode.ExtensionContext) {
   createCommand("warp_with_div", wrapWithDiv);
   createCommand("switch_with_sibiling", SwitchWithSibling);
+  createCommand("swap_with_parent", swapParentChild);
 }
 
 // This method is called when your extension is deactivated

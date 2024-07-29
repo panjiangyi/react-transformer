@@ -18,6 +18,10 @@
         "title": "Wrap with div"
       },
       {
+        "command": "react-transformer.swap_with_parent",
+        "title": "swap with parent"
+      },
+      {
         "command": "react-transformer.switch_with_sibiling",
         "title": "switch with sibiling"
       }

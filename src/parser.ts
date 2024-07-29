@@ -83,3 +83,27 @@ export const SwitchWithSibling = createStart((path) => {
   nextSiblingPath.skip();
   path.skip();
 });
+
+export const swapParentChild = createStart((path: NodePath) => {
+  const parentPath = path.parentPath;
+  if (parentPath == null) {
+    return;
+  }
+
+  // 确保父节点和子节点都是JSXElement
+  if (t.isJSXElement(parentPath.node) && t.isJSXElement(path.node)) {
+    const parentNode = t.cloneNode(parentPath.node);
+    const childNode = t.cloneNode(path.node);
+
+    // 将子节点从父节点中移除
+    parentPath.node.children = parentPath.node.children.filter(
+      (child) => child !== path.node
+    );
+
+    // 将父节点替换为子节点
+    parentPath.replaceWith(childNode);
+
+    // 将父节点添加为子节点的新子节点
+    path.replaceWith(parentNode);
+  }
+});
