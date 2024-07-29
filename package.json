@@ -15,7 +15,7 @@
     "commands": [
       {
         "command": "react-transformer.warp_with_div",
-        "title": "warp with div"
+        "title": "Wrap with div"
       }
     ]
   },

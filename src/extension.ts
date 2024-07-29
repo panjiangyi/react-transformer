@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { start } from "./parser";
+import { wrapWithDiv } from "./parser";
 
 export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand("react-transformer.warp_with_div", () => {
@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
       document.positionAt(document.getText().length)
     );
 
-    const newCode = start(sourceCode, offset);
+    const newCode = wrapWithDiv(sourceCode, offset);
     editor.edit((builder) => {
       builder.replace(fullTextRange, newCode);
     });
