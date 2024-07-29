@@ -58,3 +58,28 @@ export const wrapWithDiv = createStart((path) => {
   path.replaceWith(parentJsxElement);
   path.skip();
 });
+
+const findNextJsxElementSibling = (path: NodePath) => {
+  let siblingPath = path.getSibling((path.key as number) + 1);
+  while (siblingPath.node && !t.isJSXElement(siblingPath.node)) {
+    siblingPath = siblingPath.getSibling((siblingPath.key as number) + 1);
+  }
+  return siblingPath;
+};
+export const SwitchWithSibling = createStart((path) => {
+  const nextSiblingPath = findNextJsxElementSibling(path);
+
+  if (!nextSiblingPath.isJSXElement()) {
+    return;
+  }
+  const currentNode = t.cloneNode(path.node);
+  const nextNode = t.cloneNode(nextSiblingPath.node);
+
+  // 替换当前节点为下一个兄弟节点
+  path.replaceWith(nextNode);
+
+  // 替换下一个兄弟节点为当前节点
+  nextSiblingPath.replaceWith(currentNode);
+  nextSiblingPath.skip();
+  path.skip();
+});

@@ -1,8 +1,10 @@
 import * as vscode from "vscode";
-import { wrapWithDiv } from "./parser";
-
-export function activate(context: vscode.ExtensionContext) {
-  vscode.commands.registerCommand("react-transformer.warp_with_div", () => {
+import { wrapWithDiv, SwitchWithSibling } from "./parser";
+const createCommand = (
+  name: string,
+  implementation: (sourcecode: string, start: number) => string
+) => {
+  return vscode.commands.registerCommand(`react-transformer.${name}`, () => {
     // 获取当前活动的文本编辑器
     const editor = vscode.window.activeTextEditor;
     if (editor == null) {
@@ -22,13 +24,18 @@ export function activate(context: vscode.ExtensionContext) {
       document.positionAt(document.getText().length)
     );
 
-    const newCode = wrapWithDiv(sourceCode, offset);
+    const newCode = implementation(sourceCode, offset);
     editor.edit((builder) => {
       builder.replace(fullTextRange, newCode);
     });
 
     vscode.commands.executeCommand("editor.action.formatDocument");
   });
+};
+
+export function activate(context: vscode.ExtensionContext) {
+  createCommand("warp_with_div", wrapWithDiv);
+  createCommand("switch_with_sibiling", SwitchWithSibling);
 }
 
 // This method is called when your extension is deactivated

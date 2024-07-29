@@ -16,6 +16,10 @@
       {
         "command": "react-transformer.warp_with_div",
         "title": "Wrap with div"
+      },
+      {
+        "command": "react-transformer.switch_with_sibiling",
+        "title": "switch with sibiling"
       }
     ]
   },
