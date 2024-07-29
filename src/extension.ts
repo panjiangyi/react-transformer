@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { wrapWithDiv, SwitchWithSibling, swapParentChild } from "./parser";
+import { wrapWithDiv, SwapWithSibling, swapParentChild } from "./parser";
 const createCommand = (
   name: string,
   implementation: (sourcecode: string, start: number) => string
@@ -35,7 +35,7 @@ const createCommand = (
 
 export function activate(context: vscode.ExtensionContext) {
   createCommand("warp_with_div", wrapWithDiv);
-  createCommand("switch_with_sibiling", SwitchWithSibling);
+  createCommand("swap_with_sibiling", SwapWithSibling);
   createCommand("swap_with_parent", swapParentChild);
 }
 

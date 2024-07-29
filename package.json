@@ -22,8 +22,8 @@
         "title": "swap with parent"
       },
       {
-        "command": "react-transformer.switch_with_sibiling",
-        "title": "switch with sibiling"
+        "command": "react-transformer.swap_with_sibiling",
+        "title": "swap with sibiling"
       }
     ]
   },

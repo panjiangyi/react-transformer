@@ -66,7 +66,7 @@ const findNextJsxElementSibling = (path: NodePath) => {
   }
   return siblingPath;
 };
-export const SwitchWithSibling = createStart((path) => {
+export const SwapWithSibling = createStart((path) => {
   const nextSiblingPath = findNextJsxElementSibling(path);
 
   if (!nextSiblingPath.isJSXElement()) {
