@@ -52,8 +52,6 @@ export function activate(context: vscode.ExtensionContext) {
         const position = editor.selection.active;
 
         // 提取行号和列号
-        const line = position.line;
-        const column = position.character;
         const document = editor.document;
         const offset = document.offsetAt(position);
 
@@ -69,10 +67,6 @@ export function activate(context: vscode.ExtensionContext) {
 
         // 输出行号和列号
         vscode.commands.executeCommand("editor.action.formatDocument");
-
-        vscode.window.showInformationMessage(
-          `行号: ${line + 1}, 列号: ${column + 1},offset:${offset}`
-        );
       } else {
         vscode.window.showInformationMessage("没有活动的文本编辑器");
       }
