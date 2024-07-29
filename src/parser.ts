@@ -92,18 +92,24 @@ export const swapParentChild = createStart((path: NodePath) => {
 
   // 确保父节点和子节点都是JSXElement
   if (t.isJSXElement(parentPath.node) && t.isJSXElement(path.node)) {
-    const parentNode = t.cloneNode(parentPath.node);
-    const childNode = t.cloneNode(path.node);
+    const parentTagName = parentPath.node.openingElement.name;
+    const childTagName = path.node.openingElement.name;
 
-    // 将子节点从父节点中移除
-    parentPath.node.children = parentPath.node.children.filter(
-      (child) => child !== path.node
-    );
+    parentPath.node.openingElement.name = childTagName;
+    if (parentPath.node.closingElement) {
+      parentPath.node.closingElement.name = childTagName;
+    }
 
-    // 将父节点替换为子节点
-    parentPath.replaceWith(childNode);
+    path.node.openingElement.name = parentTagName;
+    if (path.node.closingElement) {
+      path.node.closingElement.name = parentTagName;
+    }
 
-    // 将父节点添加为子节点的新子节点
-    path.replaceWith(parentNode);
+    // 交换属性
+    const parentAttributes = parentPath.node.openingElement.attributes;
+    const childAttributes = path.node.openingElement.attributes;
+
+    parentPath.node.openingElement.attributes = childAttributes;
+    path.node.openingElement.attributes = parentAttributes;
   }
 });

@@ -19,11 +19,11 @@
       },
       {
         "command": "react-transformer.swap_with_parent",
-        "title": "swap with parent"
+        "title": "Swap with parent"
       },
       {
         "command": "react-transformer.swap_with_sibiling",
-        "title": "swap with sibiling"
+        "title": "Swap with sibiling"
       }
     ]
   },
