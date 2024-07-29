@@ -14,16 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "react-transformer.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "react-transformer.getCursorPosition",
-        "title": "getCursorPosition"
-      },
-      {
-        "command": "react-transformer.transformToOptionalChain",
-        "title": "transformToOptionalChain"
+        "command": "react-transformer.warp_with_div",
+        "title": "warp with div"
       }
     ]
   },

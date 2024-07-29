@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { start } from "./parser";
 
 export function activate(context: vscode.ExtensionContext) {
-  vscode.commands.registerCommand("react-transformer.getCursorPosition", () => {
+  vscode.commands.registerCommand("react-transformer.warp_with_div", () => {
     // 获取当前活动的文本编辑器
     const editor = vscode.window.activeTextEditor;
     if (editor == null) {
