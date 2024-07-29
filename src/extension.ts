@@ -68,6 +68,8 @@ export function activate(context: vscode.ExtensionContext) {
         });
 
         // 输出行号和列号
+        vscode.commands.executeCommand("editor.action.formatDocument");
+
         vscode.window.showInformationMessage(
           `行号: ${line + 1}, 列号: ${column + 1},offset:${offset}`
         );

@@ -6,11 +6,18 @@ import * as t from "@babel/types";
 import template from "@babel/template";
 
 // 创建一个新的父JSXElement节点
-const createParentJsxElement = (childNode: t.JSXElement) => {
+const createParentJsxElement = (
+  childNode: t.JSXElement,
+  indentation?: t.Node
+) => {
+  let tmp = t.jsxText("\n  ");
+  if (t.isJSXText(indentation)) {
+    tmp = indentation;
+  }
   return t.jsxElement(
     t.jsxOpeningElement(t.jsxIdentifier("div"), []),
     t.jsxClosingElement(t.jsxIdentifier("div")),
-    [t.jsxText("\n  "), childNode, t.jsxText("\n")],
+    [tmp, childNode, tmp],
     false
   );
 };
@@ -25,7 +32,12 @@ export function start(sourcecode: string, start: number) {
         if (start < _start || start > _end) {
           return;
         }
-        const parentJsxElement = createParentJsxElement(path.node);
+        let IndentationJSXText = path.getSibling((path.key as number) - 1).node;
+
+        const parentJsxElement = createParentJsxElement(
+          path.node,
+          IndentationJSXText
+        );
         path.replaceWith(parentJsxElement);
         path.skip();
       } catch (error) {
