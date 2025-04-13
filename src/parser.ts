@@ -4,6 +4,7 @@ import traverse, { NodePath, VisitNode } from "@babel/traverse";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
 import ts from "typescript";
+import * as vscode from "vscode";
 
 const getTypescriptTypeChecker = (code: string) => {
   const file = ts.createSourceFile("temp.tsx", code, ts.ScriptTarget.Latest);
@@ -48,15 +49,16 @@ const getAttributeNamesAndTypes = (
 // 创建一个新的父JSXElement节点
 const createParentJsxElement = (
   childNode: t.JSXElement,
-  indentation?: t.Node
+  indentation?: t.Node,
+  tagName: string = "div"
 ) => {
   let tmp = t.jsxText("\n  ");
   if (t.isJSXText(indentation)) {
     tmp = indentation;
   }
   return t.jsxElement(
-    t.jsxOpeningElement(t.jsxIdentifier("div"), []),
-    t.jsxClosingElement(t.jsxIdentifier("div")),
+    t.jsxOpeningElement(t.jsxIdentifier(tagName), []),
+    t.jsxClosingElement(t.jsxIdentifier(tagName)),
     [tmp, childNode, tmp],
     false
   );
@@ -66,16 +68,26 @@ export const createStart =
   (
     implementation: (
       path: NodePath<t.JSXElement>,
-      typeChecker: ts.TypeChecker
+      typeChecker: ts.TypeChecker,
+      ...args: any[]
     ) => unknown
   ) =>
-  (sourcecode: string, start: number) => {
+  async (sourcecode: string, start: number, ...args: any[]) => {
     const typeChecker = getTypescriptTypeChecker(sourcecode);
-    const ast = parse(sourcecode, {
-      sourceType: "module",
-      allowImportExportEverywhere: true,
-      plugins: ["jsx"],
-    });
+    let ast: t.File | null = null;
+    try {
+      ast = parse(sourcecode, {
+        sourceType: "module",
+        allowImportExportEverywhere: true,
+        plugins: ["jsx", "typescript"],
+      });
+      console.log(ast);
+    } catch (e) {
+      console.error("Parser error:", e);
+    }
+    if (ast == null) {
+      return sourcecode;
+    }
     traverse(ast, {
       JSXElement(path) {
         const _start = path.node.openingElement.start ?? Infinity;
@@ -83,7 +95,7 @@ export const createStart =
         if (start < _start || start > _end) {
           return;
         }
-        return implementation(path, typeChecker);
+        return implementation(path, typeChecker, ...args);
       },
     });
     const { code } = generate(ast, {
@@ -98,12 +110,25 @@ export const createStart =
     return code;
   };
 
-export const wrapWithDiv = createStart((path) => {
+export const wrapWithDiv = createStart(async (path, typeChecker) => {
+  const input = await vscode.window.showInputBox({
+    prompt: "Enter HTML tag name (default: div)",
+    placeHolder: "div",
+    validateInput: (value) => {
+      if (value && !/^[a-zA-Z][a-zA-Z0-9-]*$/.test(value)) {
+        return "Please enter a valid HTML tag name";
+      }
+      return null;
+    },
+  });
+
+  const tagName = input || "div";
   let IndentationJSXText = path.getSibling((path.key as number) - 1).node;
 
   const parentJsxElement = createParentJsxElement(
     path.node,
-    IndentationJSXText
+    IndentationJSXText,
+    tagName
   );
   path.replaceWith(parentJsxElement);
   path.skip();
@@ -164,8 +189,6 @@ export const swapParentChild = createStart((path: NodePath) => {
   }
 });
 export const extract = createStart((path, typeChecker) => {
-  debugger;
-  console.log("fuck", path);
   try {
     const reuslt = getAttributeNamesAndTypes(
       path.node.openingElement.attributes as unknown as t.JSXAttribute[],
