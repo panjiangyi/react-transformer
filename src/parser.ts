@@ -3,7 +3,47 @@ import { parse } from "@babel/parser";
 import traverse, { NodePath, VisitNode } from "@babel/traverse";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
-import template from "@babel/template";
+import ts from "typescript";
+
+const getTypescriptTypeChecker = (code: string) => {
+  const file = ts.createSourceFile("temp.tsx", code, ts.ScriptTarget.Latest);
+  const program = ts.createProgram(["temp.tsx"], {
+    allowJs: true,
+    checkJs: false,
+    jsx: ts.JsxEmit.Preserve,
+  });
+  return program.getTypeChecker();
+};
+
+// 辅助函数：获取属性的名称和对应的 TypeScript 类型
+const getAttributeNamesAndTypes = (
+  attributes: t.JSXAttribute[],
+  typeChecker: ts.TypeChecker
+) => {
+  return attributes.map((attr) => {
+    const name = attr.name.name;
+
+    // 获取属性对应的值（如果是JSXExpressionContainer，取其表达式）
+    let type = "unknown";
+    if (t.isJSXExpressionContainer(attr.value)) {
+      const expression = attr.value.expression;
+
+      // 使用 TypeScript 类型检查器推断类型
+      const symbol = typeChecker.getSymbolAtLocation(
+        expression as unknown as ts.Node
+      );
+      if (symbol) {
+        const type = typeChecker.getTypeOfSymbolAtLocation(
+          symbol,
+          symbol.valueDeclaration as unknown as ts.Node
+        );
+        return { name, type: typeChecker.typeToString(type) };
+      }
+    }
+
+    return { name, type };
+  });
+};
 
 // 创建一个新的父JSXElement节点
 const createParentJsxElement = (
@@ -23,9 +63,19 @@ const createParentJsxElement = (
 };
 
 export const createStart =
-  (implementation: (path: NodePath<t.JSXElement>) => unknown) =>
+  (
+    implementation: (
+      path: NodePath<t.JSXElement>,
+      typeChecker: ts.TypeChecker
+    ) => unknown
+  ) =>
   (sourcecode: string, start: number) => {
-    const ast = parse(sourcecode, { plugins: ["jsx"] });
+    const typeChecker = getTypescriptTypeChecker(sourcecode);
+    const ast = parse(sourcecode, {
+      sourceType: "module",
+      allowImportExportEverywhere: true,
+      plugins: ["jsx"],
+    });
     traverse(ast, {
       JSXElement(path) {
         const _start = path.node.openingElement.start ?? Infinity;
@@ -33,7 +83,7 @@ export const createStart =
         if (start < _start || start > _end) {
           return;
         }
-        return implementation(path);
+        return implementation(path, typeChecker);
       },
     });
     const { code } = generate(ast, {
@@ -111,5 +161,19 @@ export const swapParentChild = createStart((path: NodePath) => {
 
     parentPath.node.openingElement.attributes = childAttributes;
     path.node.openingElement.attributes = parentAttributes;
+  }
+});
+export const extract = createStart((path, typeChecker) => {
+  debugger;
+  console.log("fuck", path);
+  try {
+    const reuslt = getAttributeNamesAndTypes(
+      path.node.openingElement.attributes as unknown as t.JSXAttribute[],
+      typeChecker
+    );
+
+    console.log(reuslt);
+  } catch (error) {
+    console.error(error);
   }
 });

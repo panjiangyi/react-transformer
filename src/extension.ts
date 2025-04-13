@@ -1,5 +1,11 @@
+/* eslint-disable eqeqeq */
 import * as vscode from "vscode";
-import { wrapWithDiv, SwapWithSibling, swapParentChild } from "./parser";
+import {
+  wrapWithDiv,
+  SwapWithSibling,
+  swapParentChild,
+  extract,
+} from "./parser";
 const createCommand = (
   name: string,
   implementation: (sourcecode: string, start: number) => string
@@ -41,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     createCommand("swap_with_parent", swapParentChild)
   );
+  context.subscriptions.push(createCommand("extract_as_fc", extract));
 }
 
 // This method is called when your extension is deactivated
