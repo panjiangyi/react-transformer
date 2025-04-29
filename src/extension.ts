@@ -8,7 +8,11 @@ import {
 } from "./parser";
 const createCommand = (
   name: string,
-  implementation: (sourcecode: string, start: number) => Promise<string>
+  implementation: (
+    sourcecode: string,
+    start: number,
+    tagName?: string
+  ) => string
 ) => {
   return vscode.commands.registerCommand(
     `react-transformer.${name}`,
@@ -18,6 +22,23 @@ const createCommand = (
       if (editor == null) {
         vscode.window.showInformationMessage("没有活动的文本编辑器");
         return;
+      }
+
+      let tagName = "div";
+      if (name === "warp_with_div") {
+        const input = await vscode.window.showInputBox({
+          prompt: "Enter HTML tag name (default: div)",
+          placeHolder: "div",
+          validateInput: (value) => {
+            if (value && !/^[a-zA-Z][a-zA-Z0-9-]*$/.test(value)) {
+              return "Please enter a valid HTML tag name";
+            }
+            return null;
+          },
+        });
+        if (input !== undefined) {
+          tagName = input || "div";
+        }
       }
 
       const sourceCode = editor.document.getText();
@@ -33,7 +54,7 @@ const createCommand = (
         document.positionAt(document.getText().length)
       );
 
-      const newCode = await implementation(sourceCode, offset);
+      const newCode = implementation(sourceCode, offset, tagName);
       editor.edit((builder) => {
         builder.replace(fullTextRange, newCode);
       });

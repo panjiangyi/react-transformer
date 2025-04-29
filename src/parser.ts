@@ -4,7 +4,6 @@ import traverse, { NodePath, VisitNode } from "@babel/traverse";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
 import ts from "typescript";
-import * as vscode from "vscode";
 
 const getTypescriptTypeChecker = (code: string) => {
   const file = ts.createSourceFile("temp.tsx", code, ts.ScriptTarget.Latest);
@@ -72,22 +71,13 @@ export const createStart =
       ...args: any[]
     ) => unknown
   ) =>
-  async (sourcecode: string, start: number, ...args: any[]) => {
+  (sourcecode: string, start: number, ...args: any[]) => {
     const typeChecker = getTypescriptTypeChecker(sourcecode);
-    let ast: t.File | null = null;
-    try {
-      ast = parse(sourcecode, {
-        sourceType: "module",
-        allowImportExportEverywhere: true,
-        plugins: ["jsx", "typescript"],
-      });
-      console.log(ast);
-    } catch (e) {
-      console.error("Parser error:", e);
-    }
-    if (ast == null) {
-      return sourcecode;
-    }
+    const ast = parse(sourcecode, {
+      sourceType: "module",
+      allowImportExportEverywhere: true,
+      plugins: ["jsx", "typescript"],
+    });
     traverse(ast, {
       JSXElement(path) {
         const _start = path.node.openingElement.start ?? Infinity;
@@ -110,29 +100,19 @@ export const createStart =
     return code;
   };
 
-export const wrapWithDiv = createStart(async (path, typeChecker) => {
-  const input = await vscode.window.showInputBox({
-    prompt: "Enter HTML tag name (default: div)",
-    placeHolder: "div",
-    validateInput: (value) => {
-      if (value && !/^[a-zA-Z][a-zA-Z0-9-]*$/.test(value)) {
-        return "Please enter a valid HTML tag name";
-      }
-      return null;
-    },
-  });
+export const wrapWithDiv = createStart(
+  (path, typeChecker, tagName: string = "div") => {
+    let IndentationJSXText = path.getSibling((path.key as number) - 1).node;
 
-  const tagName = input || "div";
-  let IndentationJSXText = path.getSibling((path.key as number) - 1).node;
-
-  const parentJsxElement = createParentJsxElement(
-    path.node,
-    IndentationJSXText,
-    tagName
-  );
-  path.replaceWith(parentJsxElement);
-  path.skip();
-});
+    const parentJsxElement = createParentJsxElement(
+      path.node,
+      IndentationJSXText,
+      tagName
+    );
+    path.replaceWith(parentJsxElement);
+    path.skip();
+  }
+);
 
 const findNextJsxElementSibling = (path: NodePath) => {
   let siblingPath = path.getSibling((path.key as number) + 1);
