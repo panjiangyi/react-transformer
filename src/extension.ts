@@ -5,6 +5,7 @@ import {
   SwapWithSibling,
   swapParentChild,
   extract,
+  convertToArrowFunction,
 } from "./parser";
 const createCommand = (
   name: string,
@@ -73,6 +74,9 @@ export function activate(context: vscode.ExtensionContext) {
     createCommand("swap_with_parent", swapParentChild)
   );
   context.subscriptions.push(createCommand("extract_as_fc", extract));
+  context.subscriptions.push(
+    createCommand("convert_to_arrow", convertToArrowFunction)
+  );
 }
 
 // This method is called when your extension is deactivated

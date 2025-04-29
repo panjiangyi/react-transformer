@@ -25,6 +25,9 @@
         },
         {
           "command": "react-transformer.extract_as_fc"
+        },
+        {
+          "command": "react-transformer.convert_to_arrow"
         }
       ]
     },
@@ -44,6 +47,10 @@
       {
         "command": "react-transformer.extract_as_fc",
         "title": "Extract as FC"
+      },
+      {
+        "command": "react-transformer.convert_to_arrow",
+        "title": "Convert to Arrow Function"
       }
     ]
   },
