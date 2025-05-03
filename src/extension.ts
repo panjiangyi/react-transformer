@@ -92,6 +92,58 @@ const createGetTypedParametersCommand = () => {
   );
 };
 
+const createShowCommandsCommand = () => {
+  return vscode.commands.registerCommand(
+    "react-transformer.showCommands",
+    async () => {
+      const commands = [
+        {
+          label: "Wrap with div",
+          command: "react-transformer.warp_with_div",
+          description:
+            "Wrap the selected JSX element with a div or custom element",
+        },
+        {
+          label: "Swap with Parent",
+          command: "react-transformer.swap_with_parent",
+          description: "Swap the selected JSX element with its parent",
+        },
+        {
+          label: "Swap with Sibling",
+          command: "react-transformer.swap_with_sibiling",
+          description: "Swap the selected JSX element with its next sibling",
+        },
+        {
+          label: "Extract as Function Component",
+          command: "react-transformer.extract_as_fc",
+          description:
+            "Extract the selected JSX element as a new function component",
+        },
+        {
+          label: "Convert to Arrow Function",
+          command: "react-transformer.convert_to_arrow",
+          description: "Convert the selected function to an arrow function",
+        },
+        {
+          label: "Get Typed Parameters",
+          command: "react-transformer.get_typed_parameters",
+          description:
+            "Get type information for variables used in the selected JSX",
+        },
+      ];
+
+      const selected = await vscode.window.showQuickPick(commands, {
+        placeHolder: "Select a React Transformer command",
+        matchOnDescription: true,
+      });
+
+      if (selected) {
+        await vscode.commands.executeCommand(selected.command);
+      }
+    }
+  );
+};
+
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
   context.subscriptions.push(
@@ -105,6 +157,7 @@ export function activate(context: vscode.ExtensionContext) {
     createCommand("convert_to_arrow", convertToArrowFunction)
   );
   context.subscriptions.push(createGetTypedParametersCommand());
+  context.subscriptions.push(createShowCommandsCommand());
 }
 
 // This method is called when your extension is deactivated

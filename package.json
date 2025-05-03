@@ -12,6 +12,14 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "react-transformer.showCommands",
+        "key": "ctrl+r",
+        "mac": "cmd+r",
+        "when": "editorTextFocus"
+      }
+    ],
     "menus": {
       "editor/context": [
         {
@@ -35,6 +43,10 @@
       ]
     },
     "commands": [
+      {
+        "command": "react-transformer.showCommands",
+        "title": "React Transformer: Show All Commands"
+      },
       {
         "command": "react-transformer.warp_with_div",
         "title": "Wrap with div"
