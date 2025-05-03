@@ -28,6 +28,9 @@
         },
         {
           "command": "react-transformer.convert_to_arrow"
+        },
+        {
+          "command": "react-transformer.get_typed_parameters"
         }
       ]
     },
@@ -51,6 +54,10 @@
       {
         "command": "react-transformer.convert_to_arrow",
         "title": "Convert to Arrow Function"
+      },
+      {
+        "command": "react-transformer.get_typed_parameters",
+        "title": "Get Typed Parameters"
       }
     ]
   },

@@ -7,6 +7,8 @@ import {
   extract,
   convertToArrowFunction,
 } from "./parser";
+import getTypedParameters from "./getTypedParameters";
+
 const createCommand = (
   name: string,
   implementation: (
@@ -65,6 +67,31 @@ const createCommand = (
   );
 };
 
+const createGetTypedParametersCommand = () => {
+  return vscode.commands.registerCommand(
+    "react-transformer.get_typed_parameters",
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        vscode.window.showInformationMessage("No active editor");
+        return;
+      }
+      const sourceCode = editor.document.getText();
+      const position = editor.selection.active;
+      const document = editor.document;
+      const offset = document.offsetAt(position);
+      try {
+        const result = getTypedParameters(sourceCode, offset);
+        vscode.window.showInformationMessage(
+          "Typed Parameters: " + JSON.stringify(result, null, 2)
+        );
+      } catch (e) {
+        vscode.window.showErrorMessage("Error: " + (e as Error).message);
+      }
+    }
+  );
+};
+
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
   context.subscriptions.push(
@@ -77,6 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     createCommand("convert_to_arrow", convertToArrowFunction)
   );
+  context.subscriptions.push(createGetTypedParametersCommand());
 }
 
 // This method is called when your extension is deactivated
