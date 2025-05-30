@@ -24,52 +24,13 @@
       "editor/context": [
         {
           "command": "react-transformer.warp_with_div"
-        },
-        {
-          "command": "react-transformer.swap_with_parent"
-        },
-        {
-          "command": "react-transformer.swap_with_sibiling"
-        },
-        {
-          "command": "react-transformer.extract_as_fc"
-        },
-        {
-          "command": "react-transformer.convert_to_arrow"
-        },
-        {
-          "command": "react-transformer.get_typed_parameters"
         }
       ]
     },
     "commands": [
       {
-        "command": "react-transformer.showCommands",
-        "title": "React Transformer: Show All Commands"
-      },
-      {
         "command": "react-transformer.warp_with_div",
         "title": "Wrap with div"
-      },
-      {
-        "command": "react-transformer.swap_with_parent",
-        "title": "Swap with parent"
-      },
-      {
-        "command": "react-transformer.swap_with_sibiling",
-        "title": "Swap with sibiling"
-      },
-      {
-        "command": "react-transformer.extract_as_fc",
-        "title": "Extract as FC"
-      },
-      {
-        "command": "react-transformer.convert_to_arrow",
-        "title": "Convert to Arrow Function"
-      },
-      {
-        "command": "react-transformer.get_typed_parameters",
-        "title": "Get Typed Parameters"
       }
     ]
   },
