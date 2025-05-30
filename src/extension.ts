@@ -4,7 +4,10 @@ import getTypedParameters from "./getTypedParameters";
 
 const createCommand = (
   name: string,
-  implementation: (editor: vscode.TextEditor, offset: number) => string
+  implementation: (
+    editor: vscode.TextEditor,
+    offset: number
+  ) => Promise<string> | string
 ) => {
   return vscode.commands.registerCommand(
     `react-transformer.${name}`,
@@ -24,13 +27,12 @@ const createCommand = (
       const document = editor.document;
       const offset = document.offsetAt(position);
 
-      console.log("ddd 0", offset, position);
       const fullTextRange = new vscode.Range(
         document.positionAt(0),
         document.positionAt(document.getText().length)
       );
 
-      const newCode = implementation(editor, offset);
+      const newCode = await implementation(editor, offset);
       editor.edit((builder) => {
         builder.replace(fullTextRange, newCode);
       });
