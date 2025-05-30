@@ -24,6 +24,9 @@
       "editor/context": [
         {
           "command": "react-transformer.warp_with_div"
+        },
+        {
+          "command": "react-transformer.swap_with_next_sibling"
         }
       ]
     },
@@ -31,6 +34,10 @@
       {
         "command": "react-transformer.warp_with_div",
         "title": "Wrap with div"
+      },
+      {
+        "command": "react-transformer.swap_with_next_sibling",
+        "title": "Swap with next sibling"
       }
     ]
   },

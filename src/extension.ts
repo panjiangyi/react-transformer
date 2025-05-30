@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { wrapWithDiv } from "./parser";
+import { wrapWithDiv, swapWithNextSibling } from "./parser";
 import getTypedParameters from "./getTypedParameters";
 
 const createCommand = (
@@ -44,6 +44,9 @@ const createCommand = (
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
+  context.subscriptions.push(
+    createCommand("swap_with_next_sibling", swapWithNextSibling)
+  );
 }
 
 // This method is called when your extension is deactivated
