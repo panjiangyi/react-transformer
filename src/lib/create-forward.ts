@@ -5,8 +5,7 @@ export const createForward = (
   type: ts.TypeNode | undefined,
   initializer: any
 ) => {
-  if (ts.isArrowFunction(initializer)) {
-    console.log("success");
+  if (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer)) {
     const firstParam =
       initializer.parameters[0] ??
       factory.createParameterDeclaration(

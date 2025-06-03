@@ -176,8 +176,18 @@ export const createForwardCommand = async (
         };
       };
       const importForwardRef = createImportForwardRef();
-      // @ts-ignore
-      sourceFile.statements.unshift(importForwardRef);
+      const [firstStatement, ...resetStates] = sourceFile.statements;
+      if (ts.isExpressionStatement(firstStatement)) {
+        // @ts-ignore
+        sourceFile.statements = [
+          firstStatement,
+          importForwardRef,
+          ...resetStates,
+        ];
+      } else {
+        // @ts-ignore
+        sourceFile.statements = [importForwardRef, ...sourceFile.statements];
+      }
       sourceFile.forEachChild((node) => {
         visitor(sourceFile, node, start, getCallback());
       });
