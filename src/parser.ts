@@ -3,6 +3,7 @@ import ts from "typescript";
 import { createWrap } from "./lib/wrap-creator";
 import _ from "lodash";
 import { askForTag } from "./lib/askForTag";
+import { createForward } from "./lib/create-forward";
 
 function visitor(
   parent: ts.Node,
@@ -133,5 +134,57 @@ export const swapWithNextSibling = async (
       sourceFile
     );
   }
+  return sourcecode;
+};
+
+export const createForwardCommand = async (
+  editor: vscode.TextEditor,
+  start: number
+) => {
+  const program = ts.createProgram([editor.document.fileName], {
+    module: ts.ModuleKind.ESNext,
+  });
+
+  const printer = ts.createPrinter({
+    newLine: ts.NewLineKind.LineFeed,
+  });
+  let sourcecode = editor.document.getText();
+  for (const rootFileName of program.getRootFileNames()) {
+    const sourceFile = program.getSourceFile(rootFileName);
+    if (sourceFile == null) {
+      continue;
+    }
+
+    if (sourceFile && !sourceFile.isDeclarationFile) {
+      const getCallback = () => {
+        let found = false;
+        return (parent: ts.Node, node: ts.Node) => {
+          if (found) {
+            return;
+          }
+          if (ts.isVariableDeclaration(node)) {
+            found = true;
+            // @ts-ignore
+            const FCType = node.type?.typeArguments?.[0];
+            const newNode = createForward(FCType, node.initializer);
+            // @ts-ignore
+            node.type = undefined;
+            // @ts-ignore
+            node.initializer = newNode;
+          }
+        };
+      };
+      sourceFile.forEachChild((node) => {
+        visitor(sourceFile, node, start, getCallback());
+      });
+    }
+
+    sourcecode = printer.printNode(
+      ts.EmitHint.Unspecified,
+      sourceFile,
+      sourceFile
+    );
+  }
+  vscode.window.showInformationMessage("wrapWithDiv");
   return sourcecode;
 };

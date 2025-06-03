@@ -1,5 +1,9 @@
 import * as vscode from "vscode";
-import { wrapWithDiv, swapWithNextSibling } from "./parser";
+import {
+  wrapWithDiv,
+  swapWithNextSibling,
+  createForwardCommand,
+} from "./parser";
 import getTypedParameters from "./getTypedParameters";
 
 const createCommand = (
@@ -46,6 +50,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
   context.subscriptions.push(
     createCommand("swap_with_next_sibling", swapWithNextSibling)
+  );
+  context.subscriptions.push(
+    createCommand("create_forward", createForwardCommand)
   );
 }
 
