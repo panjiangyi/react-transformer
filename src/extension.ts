@@ -1,11 +1,7 @@
 import * as vscode from "vscode";
-import {
-  wrapWithDiv,
-  swapWithNextSibling,
-  createForwardCommand,
-} from "./parser";
-import getTypedParameters from "./getTypedParameters";
-
+import wrapWithDiv from "./command/wrapWithDiv";
+import swapWithNextSibling from "./command/swapWithNextSibling";
+import createForwardCommand from "./command/createForwardCommand";
 const createCommand = (
   name: string,
   implementation: (
