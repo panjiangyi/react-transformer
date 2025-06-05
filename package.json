@@ -30,6 +30,9 @@
         },
         {
           "command": "react-transformer.create_forward"
+        },
+        {
+          "command": "react-transformer.remove"
         }
       ]
     },
@@ -45,6 +48,10 @@
       {
         "command": "react-transformer.create_forward",
         "title": "Create forward"
+      },
+      {
+        "command": "react-transformer.remove",
+        "title": "Remove"
       }
     ]
   },

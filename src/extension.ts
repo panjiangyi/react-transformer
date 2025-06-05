@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import wrapWithDiv from "./command/wrapWithDiv";
 import swapWithNextSibling from "./command/swapWithNextSibling";
 import createForwardCommand from "./command/createForwardCommand";
+import remove from "./command/remove";
 const createCommand = (
   name: string,
   implementation: (
@@ -43,6 +44,7 @@ const createCommand = (
 };
 
 export function activate(context: vscode.ExtensionContext) {
+  context.subscriptions.push(createCommand("remove", remove));
   context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
   context.subscriptions.push(
     createCommand("swap_with_next_sibling", swapWithNextSibling)

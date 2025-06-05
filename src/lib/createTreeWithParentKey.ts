@@ -7,11 +7,9 @@ declare module "typescript" {
 }
 
 function loop<T extends ts.Node>(node: T) {
-  node.forEachChild((node) => {
-    node.__parent__ = node;
-    node.forEachChild((child) => {
-      child.__parent__ = node;
-    });
+  node.forEachChild((child) => {
+    child.__parent__ = node;
+    child.forEachChild(loop);
   });
   return node;
 }
