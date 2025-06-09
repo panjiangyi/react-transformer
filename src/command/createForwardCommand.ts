@@ -3,11 +3,14 @@ import ts from "typescript";
 import { createForward } from "../lib/create-forward";
 import { createImportForwardRef } from "../lib/create-import-forwardRef";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
+import { printNode } from "../lib/printNode";
 
 const createForwardCommand = async (
   editor: vscode.TextEditor,
   start: number
 ) => {
+  let originCodeRange: vscode.Range | null = null;
+  let newNode: ts.Node | ts.Node[] | null = null;
   const getCallback = () => {
     let found = false;
     return (parent: ts.Node, node: ts.Node) => {
@@ -18,11 +21,15 @@ const createForwardCommand = async (
         found = true;
         // @ts-ignore
         const FCType = node.type?.typeArguments?.[0];
-        const newNode = createForward(FCType, node.initializer);
         // @ts-ignore
         node.type = undefined;
         // @ts-ignore
-        node.initializer = newNode;
+        node.initializer = createForward(FCType, node.initializer);
+        originCodeRange = new vscode.Range(
+          editor.document.positionAt(node.pos),
+          editor.document.positionAt(node.end)
+        );
+        newNode = node;
       }
     };
   };
@@ -41,13 +48,23 @@ const createForwardCommand = async (
       sourceFile.statements = [importForwardRef, ...sourceFile.statements];
     }
   };
-  return transformSourceFileWithVisitor(
+  await transformSourceFileWithVisitor(
     editor,
     start,
     getCallback,
     preVisitMutateSourceFile,
     "wrapWithDiv"
   );
+  if (newNode == null) {
+    throw new Error("newNode is null");
+  }
+  if (originCodeRange == null) {
+    throw new Error("originCodeRange is null");
+  }
+  return {
+    code: printNode(newNode),
+    originCodeRange,
+  };
 };
 
 export default createForwardCommand;

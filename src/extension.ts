@@ -8,7 +8,10 @@ const createCommand = (
   implementation: (
     editor: vscode.TextEditor,
     offset: number
-  ) => Promise<string> | string
+  ) => Promise<{
+    code: string;
+    originCodeRange: vscode.Range;
+  }>
 ) => {
   return vscode.commands.registerCommand(
     `react-transformer.${name}`,
@@ -33,12 +36,13 @@ const createCommand = (
         document.positionAt(document.getText().length)
       );
 
-      const newCode = await implementation(editor, offset);
+      const { code, originCodeRange } = await implementation(editor, offset);
       editor.edit((builder) => {
-        builder.replace(fullTextRange, newCode);
+        builder.replace(originCodeRange, code);
       });
 
-      vscode.commands.executeCommand("editor.action.formatDocument");
+
+      // vscode.commands.executeCommand("editor.action.formatDocument");
     }
   );
 };

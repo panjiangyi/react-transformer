@@ -2,8 +2,11 @@ import * as vscode from "vscode";
 import ts from "typescript";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
 import { createWrap } from "../lib/wrap-creator";
+import { printNode } from "../lib/printNode";
 
 const remove = async (editor: vscode.TextEditor, start: number) => {
+  let originCodeRange: vscode.Range | null = null;
+  let newNode: ts.Node | ts.Node[] | null = null;
   const getCallback = () => {
     let found = false;
     return (parent: ts.Node, node: ts.Node) => {
@@ -12,6 +15,7 @@ const remove = async (editor: vscode.TextEditor, start: number) => {
       }
       if (ts.isJsxElement(node)) {
         found = true;
+   
         if (ts.isJsxElement(parent)) {
           if (parent.children) {
             // @ts-expect-error
@@ -23,18 +27,33 @@ const remove = async (editor: vscode.TextEditor, start: number) => {
                 return child;
               })
               .flat();
+            originCodeRange = new vscode.Range(
+              editor.document.positionAt(parent.pos),
+              editor.document.positionAt(parent.end)
+            );
+            newNode = parent
           }
         }
       }
     };
   };
-  return transformSourceFileWithVisitor(
+  await transformSourceFileWithVisitor(
     editor,
     start,
     getCallback,
     undefined,
     "success"
   );
+  if (newNode == null) {
+    throw new Error("newNode is null");
+  }
+  if (originCodeRange == null) {
+    throw new Error("originCodeRange is null");
+  }
+  return {
+    code: printNode(newNode),
+    originCodeRange,
+  };
 };
 
 export default remove;

@@ -3,9 +3,13 @@ import ts from "typescript";
 import { askForTag } from "../lib/askForTag";
 import { createWrap } from "../lib/wrap-creator";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
+import { printNode } from "../lib/printNode";
 
 const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
   let tagName = await askForTag();
+
+let originCodeRange: vscode.Range | null = null;
+let newNode: ts.Node | ts.Node[] | null = null;
   const getCallback = () => {
     let found = false;
     return (parent: ts.Node, node: ts.Node) => {
@@ -14,28 +18,35 @@ const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
       }
       if (ts.isJsxElement(node)) {
         found = true;
+        originCodeRange = new vscode.Range(
+          editor.document.positionAt(node.pos),
+          editor.document.positionAt(node.end)
+        );
         if (ts.isParenthesizedExpression(parent)) {
-          // @ts-ignore
-          parent.expression = createWrap(tagName, [node]);
+          newNode = createWrap(tagName, [node]);
         } else if (ts.isJsxElement(parent)) {
-          // @ts-ignored
-          parent.children = parent.children.map((child) => {
-            if (child === node) {
-              return createWrap(tagName, [node]);
-            }
-            return child;
-          });
+          newNode = createWrap(tagName, [node]);
         }
       }
     };
   };
-  return transformSourceFileWithVisitor(
+  await transformSourceFileWithVisitor(
     editor,
     start,
     getCallback,
     undefined,
     "wrapWithDiv"
   );
+  if (newNode == null) {
+    throw new Error("newCode is null");
+  }
+  if (originCodeRange == null) {
+    throw new Error("originCodeRange is null");
+  }
+  return {
+    code: printNode(newNode),
+    originCodeRange,
+  };
 };
 
 export default wrapWithDiv;

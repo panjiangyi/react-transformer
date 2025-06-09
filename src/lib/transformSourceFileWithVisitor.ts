@@ -14,29 +14,28 @@ async function transformSourceFileWithVisitor(
 ) {
   const program = ts.createProgram([editor.document.fileName], {
     module: ts.ModuleKind.ESNext,
+    jsx: ts.JsxEmit.Preserve,
+    target: ts.ScriptTarget.Latest,
+    moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    allowJs: true,
+    checkJs: false,
   });
 
   const printer = ts.createPrinter({
     newLine: ts.NewLineKind.LineFeed,
   });
   let sourcecode = editor.document.getText();
-  for (const rootFileName of program.getRootFileNames()) {
-    const sourceFile = createTreeWithParentKey(
-      program.getSourceFile(rootFileName)
-    );
-    if (sourceFile == null) {
-      continue;
+  const rootFileName = editor.document.fileName;
+  const sourceFile = createTreeWithParentKey(
+    program.getSourceFile(rootFileName)
+  );
+  if (sourceFile != null && !sourceFile.isDeclarationFile) {
+    if (preVisitMutateSourceFile) {
+      preVisitMutateSourceFile(sourceFile);
     }
-
-    if (sourceFile && !sourceFile.isDeclarationFile) {
-      if (preVisitMutateSourceFile) {
-        preVisitMutateSourceFile(sourceFile);
-      }
-      sourceFile.forEachChild((node) => {
-        visitor(sourceFile, node, start, getCallback(sourceFile));
-      });
-    }
-
+    sourceFile.forEachChild((node) => {
+      visitor(sourceFile, node, start, getCallback(sourceFile));
+    });
     sourcecode = printer.printNode(
       ts.EmitHint.Unspecified,
       sourceFile,
