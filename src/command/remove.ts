@@ -3,6 +3,7 @@ import ts from "typescript";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
 import { createWrap } from "../lib/wrap-creator";
 import { printNode } from "../lib/printNode";
+import { getSourceFile } from "../lib/getSourceFile";
 
 const remove = async (editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null;
@@ -28,7 +29,7 @@ const remove = async (editor: vscode.TextEditor, start: number) => {
               })
               .flat();
             originCodeRange = new vscode.Range(
-              editor.document.positionAt(parent.pos),
+              editor.document.positionAt(node.getStart(getSourceFile(editor))),
               editor.document.positionAt(parent.end)
             );
             newNode = parent

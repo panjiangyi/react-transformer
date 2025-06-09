@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import ts from "typescript";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
 import { printNode } from "../lib/printNode";
+import { getSourceFile } from "../lib/getSourceFile";
 
 const swapWithNextSibling = async (
   editor: vscode.TextEditor,
@@ -28,7 +29,7 @@ const swapWithNextSibling = async (
           parent.children = newChildren;
           newNode = parent;
           originCodeRange = new vscode.Range(
-            editor.document.positionAt(parent.pos),
+            editor.document.positionAt(parent.getStart(getSourceFile(editor))),
             editor.document.positionAt(parent.end)
           );
           swapped = true;

@@ -4,6 +4,7 @@ import { createForward } from "../lib/create-forward";
 import { createImportForwardRef } from "../lib/create-import-forwardRef";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
 import { printNode } from "../lib/printNode";
+import { getSourceFile } from "../lib/getSourceFile";
 
 const createForwardCommand = async (
   editor: vscode.TextEditor,
@@ -26,7 +27,7 @@ const createForwardCommand = async (
         // @ts-ignore
         node.initializer = createForward(FCType, node.initializer);
         originCodeRange = new vscode.Range(
-          editor.document.positionAt(node.pos),
+         editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end)
         );
         newNode = node;

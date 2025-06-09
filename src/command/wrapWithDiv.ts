@@ -4,6 +4,7 @@ import { askForTag } from "../lib/askForTag";
 import { createWrap } from "../lib/wrap-creator";
 import transformSourceFileWithVisitor from "../lib/transformSourceFileWithVisitor";
 import { printNode } from "../lib/printNode";
+import { getSourceFile } from "../lib/getSourceFile";
 
 const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
   let tagName = await askForTag();
@@ -19,7 +20,7 @@ let newNode: ts.Node | ts.Node[] | null = null;
       if (ts.isJsxElement(node)) {
         found = true;
         originCodeRange = new vscode.Range(
-          editor.document.positionAt(node.pos),
+          editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end)
         );
         if (ts.isParenthesizedExpression(parent)) {
