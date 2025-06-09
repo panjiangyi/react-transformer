@@ -49,7 +49,7 @@ const createCommand = (
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand("remove", remove));
-  context.subscriptions.push(createCommand("warp_with_div", wrapWithDiv));
+  context.subscriptions.push(createCommand("warp_it", wrapWithDiv));
   context.subscriptions.push(
     createCommand("swap_with_next_sibling", swapWithNextSibling)
   );
