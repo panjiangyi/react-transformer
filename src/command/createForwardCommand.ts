@@ -63,7 +63,7 @@ const createForwardCommand = async (
     throw new Error("originCodeRange is null");
   }
   return {
-    code: printNode(newNode),
+    code: printNode(newNode,getSourceFile(editor)),
     originCodeRange,
   };
 };

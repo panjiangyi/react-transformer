@@ -45,7 +45,7 @@ let newNode: ts.Node | ts.Node[] | null = null;
     throw new Error("originCodeRange is null");
   }
   return {
-    code: printNode(newNode),
+    code: printNode(newNode,getSourceFile(editor)),
     originCodeRange,
   };
 };

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import ts from "typescript";
 import visitor from "./visitor";
 import { createTreeWithParentKey } from "./createTreeWithParentKey";
+import { getSourceFile } from "./getSourceFile";
 
 async function transformSourceFileWithVisitor(
   editor: vscode.TextEditor,
@@ -12,23 +13,8 @@ async function transformSourceFileWithVisitor(
   preVisitMutateSourceFile?: (sourceFile: ts.SourceFile) => void,
   message?: string
 ) {
-  const program = ts.createProgram([editor.document.fileName], {
-    module: ts.ModuleKind.ESNext,
-    jsx: ts.JsxEmit.Preserve,
-    target: ts.ScriptTarget.Latest,
-    moduleResolution: ts.ModuleResolutionKind.NodeJs,
-    allowJs: true,
-    checkJs: false,
-  });
 
-  const printer = ts.createPrinter({
-    newLine: ts.NewLineKind.LineFeed,
-  });
-  let sourcecode = editor.document.getText();
-  const rootFileName = editor.document.fileName;
-  const sourceFile = createTreeWithParentKey(
-    program.getSourceFile(rootFileName)
-  );
+  const sourceFile = getSourceFile(editor);
   if (sourceFile != null && !sourceFile.isDeclarationFile) {
     if (preVisitMutateSourceFile) {
       preVisitMutateSourceFile(sourceFile);
@@ -36,16 +22,10 @@ async function transformSourceFileWithVisitor(
     sourceFile.forEachChild((node) => {
       visitor(sourceFile, node, start, getCallback(sourceFile));
     });
-    sourcecode = printer.printNode(
-      ts.EmitHint.Unspecified,
-      sourceFile,
-      sourceFile
-    );
   }
   if (message) {
     vscode.window.showInformationMessage(message);
   }
-  return sourcecode;
 }
 
 export default transformSourceFileWithVisitor;

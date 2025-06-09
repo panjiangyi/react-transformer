@@ -52,7 +52,7 @@ const remove = async (editor: vscode.TextEditor, start: number) => {
     throw new Error("originCodeRange is null");
   }
   return {
-    code: printNode(newNode),
+    code: printNode(newNode,getSourceFile(editor)),
     originCodeRange,
   };
 };

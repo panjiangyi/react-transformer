@@ -9,17 +9,8 @@ import * as ts from "typescript";
  */
 export const printNode = (
   node: ts.Node | ts.Node[],
-  sourceFile?: ts.SourceFile,
+  sourceFile: ts.SourceFile
 ): string => {
-
-  // Create a temporary source file for context
-  sourceFile = sourceFile || ts.createSourceFile(
-    "temp.tsx",
-    "",
-    ts.ScriptTarget.Latest,
-    true, // setParentNodes
-    ts.ScriptKind.TSX
-  );
 
   // Create printer with specified options
   const printer = ts.createPrinter({

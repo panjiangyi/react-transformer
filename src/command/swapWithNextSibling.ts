@@ -54,7 +54,7 @@ const swapWithNextSibling = async (
   }
 
   return {
-    code: printNode(newNode),
+    code: printNode(newNode,getSourceFile(editor)),
     originCodeRange,
   };
 };
