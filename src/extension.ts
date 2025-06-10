@@ -42,7 +42,7 @@ const createCommand = (
       });
 
 
-      // vscode.commands.executeCommand("editor.action.formatDocument");
+      vscode.commands.executeCommand("editor.action.formatDocument");
     }
   );
 };
