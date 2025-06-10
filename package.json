@@ -13,17 +13,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "keybindings": [
-      {
-        "command": "react-transformer.showCommands",
-        "key": "ctrl+r",
-        "mac": "cmd+r",
-        "when": "editorTextFocus"
-      }
-    ],
+    "keybindings": [],
     "menus": {
       "editor/context": [
         {
@@ -70,6 +68,10 @@
       {
         "command": "react-transformer.create_conditional_expression",
         "title": "Create conditional expression"
+      },
+      {
+        "command": "react-transformer.showRefactorMenu",
+        "title": "Show Refactor Menu"
       }
     ]
   },
