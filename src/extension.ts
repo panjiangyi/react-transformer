@@ -73,7 +73,7 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
     const actions: vscode.CodeAction[] = []
 
     const refactorings = [
-      { title: 'Wrap with <div>', command: 'react-transformer.warp_it' },
+      { title: 'Wrap with new tag (default: Fragment)', command: 'react-transformer.warp_it' },
       { title: 'Remove', command: 'react-transformer.remove' },
       { title: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
       { title: 'Create forward ref', command: 'react-transformer.create_forward' },
