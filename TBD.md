@@ -1,0 +1,1 @@
+JsxSelfClosingElement Should be handled
