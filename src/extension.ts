@@ -6,6 +6,7 @@ import { removeWrapper, removeAll } from './command/remove'
 import createAmpersandExpressionCommand from './command/createAmpersandExpression'
 import createConditionalExpressionCommand from './command/createConditionalExpression'
 import removeChildrenCommand from './command/removeChildren'
+import './lib/loadEnv'
 const createCommand = (
   name: string,
   implementation: (
@@ -18,6 +19,7 @@ const createCommand = (
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
     // 获取当前活动的文本编辑器
+
     const editor = vscode.window.activeTextEditor
     if (editor == null) {
       vscode.window.showInformationMessage('没有活动的文本编辑器')

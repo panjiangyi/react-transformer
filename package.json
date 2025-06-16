@@ -49,7 +49,45 @@
           "command": "react-transformer.remove_children"
         }
       ]
-    }
+    },
+    "commands": [
+      {
+        "command": "react-transformer.warp_it",
+        "title": "Wrap with new tag (default: Fragment)"
+      },
+      {
+        "command": "react-transformer.swap_with_next_sibling",
+        "title": "Swap with next sibling"
+      },
+      {
+        "command": "react-transformer.create_forward",
+        "title": "Create forward"
+      },
+      {
+        "command": "react-transformer.remove_wrapper",
+        "title": "Remove wrapper"
+      },
+      {
+        "command": "react-transformer.remove_all",
+        "title": "Remove all"
+      },
+      {
+        "command": "react-transformer.create_ampersand_expression",
+        "title": "Create ampersand expression"
+      },
+      {
+        "command": "react-transformer.create_conditional_expression",
+        "title": "Create conditional expression"
+      },
+      {
+        "command": "react-transformer.remove_children",
+        "title": "Remove all children from tag"
+      },
+      {
+        "command": "react-transformer.showRefactorMenu",
+        "title": "Show Refactor Menu"
+      }
+    ]
   },
   "scripts": {
     "build": "npm run compile && vsce package",
@@ -90,6 +128,7 @@
     "vsce": "^2.15.0"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "lodash": "^4.17.21"
   }
 }
