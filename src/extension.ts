@@ -2,9 +2,10 @@ import * as vscode from 'vscode'
 import wrapWithDiv from './command/wrapWithDiv'
 import swapWithNextSibling from './command/swapWithNextSibling'
 import createForwardCommand from './command/createForwardCommand'
-import remove from './command/remove'
+import { removeWrapper, removeAll } from './command/remove'
 import createAmpersandExpressionCommand from './command/createAmpersandExpression'
 import createConditionalExpressionCommand from './command/createConditionalExpression'
+import removeChildrenCommand from './command/removeChildren'
 const createCommand = (
   name: string,
   implementation: (
@@ -45,7 +46,7 @@ const createCommand = (
 function showRefactorMenu() {
   const options = [
     { label: 'Wrap with <div>', command: 'react-transformer.warp_it' },
-    { label: 'Remove', command: 'react-transformer.remove' },
+    { label: 'Remove wrapper', command: 'react-transformer.remove_wrapper' },
     { label: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
     { label: 'Create forward ref', command: 'react-transformer.create_forward' },
     { label: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
@@ -74,7 +75,9 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
 
     const refactorings = [
       { title: 'Wrap with new tag (default: Fragment)', command: 'react-transformer.warp_it' },
-      { title: 'Remove', command: 'react-transformer.remove' },
+      { title: 'Remove wrapper', command: 'react-transformer.remove_wrapper' },
+      { title: 'Remove all', command: 'react-transformer.remove_all' },
+      { title: 'Remove children', command: 'react-transformer.remove_children' },
       { title: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
       { title: 'Create forward ref', command: 'react-transformer.create_forward' },
       { title: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
@@ -94,12 +97,14 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(createCommand('remove', remove))
+  context.subscriptions.push(createCommand('remove_wrapper', removeWrapper))
+  context.subscriptions.push(createCommand('remove_all', removeAll))
   context.subscriptions.push(createCommand('warp_it', wrapWithDiv))
   context.subscriptions.push(createCommand('swap_with_next_sibling', swapWithNextSibling))
   context.subscriptions.push(createCommand('create_forward', createForwardCommand))
   context.subscriptions.push(createCommand('create_ampersand_expression', createAmpersandExpressionCommand))
   context.subscriptions.push(createCommand('create_conditional_expression', createConditionalExpressionCommand))
+  context.subscriptions.push(createCommand('remove_children', removeChildrenCommand))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.showRefactorMenu', showRefactorMenu))
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(

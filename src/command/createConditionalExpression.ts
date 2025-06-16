@@ -5,6 +5,7 @@ import { createWrap } from '../lib/wrap-creator'
 import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
 import { createConditionalExpression } from '../lib/createConditionalExpression'
+import { isElement } from '../lib/isElement'
 
 const createConditionalExpressionCommand = async (editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null
@@ -15,7 +16,7 @@ const createConditionalExpressionCommand = async (editor: vscode.TextEditor, sta
       if (found) {
         return
       }
-      if (ts.isJsxElement(node)) {
+      if (isElement(node)) {
         found = true
         newNode = createConditionalExpression('__placeholder__', node)
         originCodeRange = new vscode.Range(

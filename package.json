@@ -34,46 +34,22 @@
           "command": "react-transformer.create_forward"
         },
         {
-          "command": "react-transformer.remove"
+          "command": "react-transformer.remove_wrapper"
+        },
+        {
+          "command": "react-transformer.remove_all"
         },
         {
           "command": "react-transformer.create_ampersand_expression"
         },
         {
           "command": "react-transformer.create_conditional_expression"
+        },
+        {
+          "command": "react-transformer.remove_children"
         }
       ]
-    },
-    "commands": [
-      {
-        "command": "react-transformer.warp_it",
-        "title": "Wrap with new tag (default: Fragment)"
-      },
-      {
-        "command": "react-transformer.swap_with_next_sibling",
-        "title": "Swap with next sibling"
-      },
-      {
-        "command": "react-transformer.create_forward",
-        "title": "Create forward"
-      },
-      {
-        "command": "react-transformer.remove",
-        "title": "Remove"
-      },
-      {
-        "command": "react-transformer.create_ampersand_expression",
-        "title": "Create ampersand expression"
-      },
-      {
-        "command": "react-transformer.create_conditional_expression",
-        "title": "Create conditional expression"
-      },
-      {
-        "command": "react-transformer.showRefactorMenu",
-        "title": "Show Refactor Menu"
-      }
-    ]
+    }
   },
   "scripts": {
     "build": "npm run compile && vsce package",

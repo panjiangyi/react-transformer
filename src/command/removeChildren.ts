@@ -1,40 +1,35 @@
 import * as vscode from 'vscode'
 import ts from 'typescript'
-import { askForTag } from '../lib/askForTag'
-import { createWrap } from '../lib/wrap-creator'
 import transformSourceFileWithVisitor from '../lib/transformSourceFileWithVisitor'
 import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
+import { createWrap } from '../lib/wrap-creator'
 import { isElement } from '../lib/isElement'
 
-const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
-  let tagName = await askForTag()
-
+const removeChildrenCommand = async (editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null
-  let newNode: ts.Node | ts.Node[] | null = null
+  let newNode: ts.Node | null = null
   const getCallback = () => {
     let found = false
     return (parent: ts.Node, node: ts.Node) => {
       if (found) {
         return
       }
-      if (isElement(node)) {
+      if (ts.isJsxFragment(node) || ts.isJsxElement(node)) {
         found = true
         originCodeRange = new vscode.Range(
           editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end),
         )
-        if (ts.isParenthesizedExpression(parent)) {
-          newNode = createWrap(tagName, [node])
-        } else if (isElement(parent)) {
-          newNode = createWrap(tagName, [node])
-        }
+        //@ts-expect-error
+        node.children = []
+        newNode = node
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'wrapWithDiv')
+  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'Remove all children from tag')
   if (newNode == null) {
-    throw new Error('newCode is null')
+    throw new Error('newNode is null')
   }
   if (originCodeRange == null) {
     throw new Error('originCodeRange is null')
@@ -45,4 +40,4 @@ const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
   }
 }
 
-export default wrapWithDiv
+export default removeChildrenCommand

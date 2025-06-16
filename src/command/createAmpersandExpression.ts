@@ -5,6 +5,7 @@ import { createWrap } from '../lib/wrap-creator'
 import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
 import { createAmpersandExpression } from '../lib/createAmpersandExpression'
+import { isElement } from '../lib/isElement'
 
 const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null
@@ -15,7 +16,7 @@ const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start
       if (found) {
         return
       }
-      if (ts.isJsxElement(node)) {
+      if (isElement(node)) {
         found = true
         newNode = createAmpersandExpression('__placeholder__', node)
         originCodeRange = new vscode.Range(
