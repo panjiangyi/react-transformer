@@ -6,6 +6,7 @@ import { removeWrapper, removeAll } from './command/remove'
 import createAmpersandExpressionCommand from './command/createAmpersandExpression'
 import createConditionalExpressionCommand from './command/createConditionalExpression'
 import removeChildrenCommand from './command/removeChildren'
+import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
 const createCommand = (
   name: string,
@@ -47,17 +48,17 @@ const createCommand = (
 
 function showRefactorMenu() {
   const options = [
-    { label: 'Wrap with <div>', command: 'react-transformer.warp_it' },
-    { label: 'Remove wrapper', command: 'react-transformer.remove_wrapper' },
-    { label: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
-    { label: 'Create forward ref', command: 'react-transformer.create_forward' },
-    { label: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
-    { label: 'Create conditional expression', command: 'react-transformer.create_conditional_expression' },
+    { label: '用新标签包裹（默认：Fragment）', command: 'react-transformer.warp_it' },
+    { label: '移除包裹标签', command: 'react-transformer.remove_wrapper' },
+    { label: '与下一个兄弟节点交换', command: 'react-transformer.swap_with_next_sibling' },
+    { label: '创建 forward ref', command: 'react-transformer.create_forward' },
+    { label: '创建 & 表达式', command: 'react-transformer.create_ampersand_expression' },
+    { label: '创建条件表达式', command: 'react-transformer.create_conditional_expression' },
   ]
 
   vscode.window
     .showQuickPick(options, {
-      placeHolder: 'Select a refactoring',
+      placeHolder: '选择一个重构操作',
     })
     .then(selected => {
       if (selected) {
@@ -76,14 +77,14 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
     const actions: vscode.CodeAction[] = []
 
     const refactorings = [
-      { title: 'Wrap with new tag (default: Fragment)', command: 'react-transformer.warp_it' },
-      { title: 'Remove wrapper', command: 'react-transformer.remove_wrapper' },
-      { title: 'Remove all', command: 'react-transformer.remove_all' },
-      { title: 'Remove children', command: 'react-transformer.remove_children' },
-      { title: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
-      { title: 'Create forward ref', command: 'react-transformer.create_forward' },
-      { title: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
-      { title: 'Create conditional expression', command: 'react-transformer.create_conditional_expression' },
+      { title: '用新标签包裹（默认：Fragment）', command: 'react-transformer.warp_it' },
+      { title: '移除包裹标签', command: 'react-transformer.remove_wrapper' },
+      { title: '移除所有内容', command: 'react-transformer.remove_all' },
+      { title: '移除所有子节点', command: 'react-transformer.remove_children' },
+      { title: '与下一个兄弟节点交换', command: 'react-transformer.swap_with_next_sibling' },
+      { title: '创建 forward ref', command: 'react-transformer.create_forward' },
+      { title: '创建 & 表达式', command: 'react-transformer.create_ampersand_expression' },
+      { title: '创建条件表达式', command: 'react-transformer.create_conditional_expression' },
     ]
 
     for (const refactor of refactorings) {
@@ -108,6 +109,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createCommand('create_conditional_expression', createConditionalExpressionCommand))
   context.subscriptions.push(createCommand('remove_children', removeChildrenCommand))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.showRefactorMenu', showRefactorMenu))
+  context.subscriptions.push(vscode.commands.registerCommand('react-transformer.show_machine_id', showMachineId))
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(
       ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],

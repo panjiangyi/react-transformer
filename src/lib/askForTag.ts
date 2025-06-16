@@ -1,13 +1,13 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode'
 export const askForTag = async () => {
   const input = await vscode.window.showInputBox({
-    prompt: "Enter HTML tag name (default: Fragment)",
-    validateInput: (value) => {
+    prompt: '请输入 HTML 标签名（默认：Fragment）',
+    validateInput: value => {
       if (value && !/^[a-zA-Z][a-zA-Z0-9-]*$/.test(value)) {
-        return "Please enter a valid HTML tag name";
+        return '请输入合法的 HTML 标签名'
       }
-      return null;
+      return null
     },
-  });
-  return input 
-};
+  })
+  return input
+}
