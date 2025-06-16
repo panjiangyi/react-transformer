@@ -27,7 +27,7 @@ const removeChildrenCommand = async (editor: vscode.TextEditor, start: number) =
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'Remove all children from tag')
+  await transformSourceFileWithVisitor(editor, start, getCallback)
   if (newNode == null) {
     throw new Error('newNode is null')
   }

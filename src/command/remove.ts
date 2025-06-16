@@ -32,7 +32,7 @@ const remove = async (keepChildren: boolean, editor: vscode.TextEditor, start: n
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'success')
+  await transformSourceFileWithVisitor(editor, start, getCallback)
 
   if (originCodeRange == null) {
     throw new Error('originCodeRange is null')

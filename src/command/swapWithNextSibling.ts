@@ -35,13 +35,7 @@ const swapWithNextSibling = async (editor: vscode.TextEditor, start: number) => 
       }
     }
   }
-  await transformSourceFileWithVisitor(
-    editor,
-    start,
-    getCallback,
-    undefined,
-    swapped ? 'Swapped JSX element with its next sibling' : 'No JSX sibling to swap with',
-  )
+  await transformSourceFileWithVisitor(editor, start, getCallback)
   if (newNode == null) {
     throw new Error('newNode is null')
   }

@@ -36,7 +36,7 @@ const createConditionalExpressionCommand = async (editor: vscode.TextEditor, sta
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'success')
+  await transformSourceFileWithVisitor(editor, start, getCallback)
   if (newNode == null) {
     throw new Error('newNode is null')
   }

@@ -1,31 +1,20 @@
-import * as vscode from "vscode";
-import ts from "typescript";
-import visitor from "./visitor";
-import { createTreeWithParentKey } from "./createTreeWithParentKey";
-import { getSourceFile } from "./getSourceFile";
+import * as vscode from 'vscode'
+import ts from 'typescript'
+import visitor from './visitor'
+import { createTreeWithParentKey } from './createTreeWithParentKey'
+import { getSourceFile } from './getSourceFile'
 
 async function transformSourceFileWithVisitor(
   editor: vscode.TextEditor,
   start: number,
-  getCallback: (
-    sourceFile: ts.SourceFile
-  ) => (parent: ts.Node, node: ts.Node) => void,
-  preVisitMutateSourceFile?: (sourceFile: ts.SourceFile) => void,
-  message?: string
+  getCallback: (sourceFile: ts.SourceFile) => (parent: ts.Node, node: ts.Node) => void,
 ) {
-
-  const sourceFile = getSourceFile(editor);
+  const sourceFile = getSourceFile(editor)
   if (sourceFile != null && !sourceFile.isDeclarationFile) {
-    if (preVisitMutateSourceFile) {
-      preVisitMutateSourceFile(sourceFile);
-    }
-    sourceFile.forEachChild((node) => {
-      visitor(sourceFile, node, start, getCallback(sourceFile));
-    });
-  }
-  if (message) {
-    vscode.window.showInformationMessage(message);
+    sourceFile.forEachChild(node => {
+      visitor(sourceFile, node, start, getCallback(sourceFile))
+    })
   }
 }
 
-export default transformSourceFileWithVisitor;
+export default transformSourceFileWithVisitor

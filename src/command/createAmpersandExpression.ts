@@ -36,7 +36,7 @@ const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'success')
+  await transformSourceFileWithVisitor(editor, start, getCallback)
   if (newNode == null) {
     throw new Error('newNode is null')
   }

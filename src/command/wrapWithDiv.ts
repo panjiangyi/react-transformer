@@ -32,7 +32,7 @@ const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
       }
     }
   }
-  await transformSourceFileWithVisitor(editor, start, getCallback, undefined, 'wrapWithDiv')
+  await transformSourceFileWithVisitor(editor, start, getCallback)
   if (newNode == null) {
     throw new Error('newCode is null')
   }
