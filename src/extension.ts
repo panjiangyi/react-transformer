@@ -9,7 +9,7 @@ import removeChildrenCommand from './command/removeChildren'
 import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
 import { onInstall } from './payment'
-import { isInTrial, setTrialStartTime } from './payment/trial'
+import { isInTrial, setTrialStartTime, getTrialRemainingTime, initTrialStatusBar } from './payment/trial'
 const createCommand = (
   context: vscode.ExtensionContext,
   name: string,
@@ -136,6 +136,7 @@ export function activate(context: vscode.ExtensionContext) {
       },
     ),
   )
+  initTrialStatusBar(context)
 }
 
 // This method is called when your extension is deactivated
