@@ -1,0 +1,25 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Library and Utility Files Guide
+
+The [`src/lib/`](mdc:src/lib) directory contains utility and helper functions used throughout the project:
+
+- [`askForTag.ts`](mdc:src/lib/askForTag.ts): Utility for prompting the user to select a tag.
+- [`loadEnv.ts`](mdc:src/lib/loadEnv.ts): Loads environment variables.
+- [`validateLicense.ts`](mdc:src/lib/validateLicense.ts): Validates the license key.
+- [`machineId.ts`](mdc:src/lib/machineId.ts): Retrieves the machine ID.
+- [`transformSourceFileWithVisitor.ts`](mdc:src/lib/transformSourceFileWithVisitor.ts): Applies a visitor to transform a source file.
+- [`findAndOperateOnNode.ts`](mdc:src/lib/findAndOperateOnNode.ts): Finds and operates on AST nodes.
+- [`isElement.ts`](mdc:src/lib/isElement.ts): Checks if a node is an element.
+- [`printNode.ts`](mdc:src/lib/printNode.ts): Prints an AST node.
+- [`createConditionalExpression.ts`](mdc:src/lib/createConditionalExpression.ts): Creates a conditional expression node.
+- [`createAmpersandExpression.ts`](mdc:src/lib/createAmpersandExpression.ts): Creates an ampersand expression node.
+- [`getSourceFile.ts`](mdc:src/lib/getSourceFile.ts): Loads a TypeScript source file.
+- [`wrap-creator.ts`](mdc:src/lib/wrap-creator.ts): Utility for creating wrapper nodes.
+- [`createTreeWithParentKey.ts`](mdc:src/lib/createTreeWithParentKey.ts): Creates a tree structure with parent keys.
+- [`visitor.ts`](mdc:src/lib/visitor.ts): Visitor pattern implementation for AST traversal.
+- [`create-forward.ts`](mdc:src/lib/create-forward.ts): Creates a forward reference node.
+- [`create-import-forwardRef.ts`](mdc:src/lib/create-import-forwardRef.ts): Creates an import for React's forwardRef.

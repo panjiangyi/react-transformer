@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Command Files Guide
+
+The [`src/command/`](mdc:src/command) directory contains command implementations for the extension:
+
+- [`createAmpersandExpression.ts`](mdc:src/command/createAmpersandExpression.ts): Creates an ampersand expression node.
+- [`createConditionalExpression.ts`](mdc:src/command/createConditionalExpression.ts): Creates a conditional expression node.
+- [`createForwardCommand.ts`](mdc:src/command/createForwardCommand.ts): Creates a forward command node.
+- [`remove.ts`](mdc:src/command/remove.ts): Removes a node from the AST.
+- [`removeChildren.ts`](mdc:src/command/removeChildren.ts): Removes all children from a node.
+- [`showMachineId.ts`](mdc:src/command/showMachineId.ts): Shows the machine ID.
+- [`swapWithNextSibling.ts`](mdc:src/command/swapWithNextSibling.ts): Swaps a node with its next sibling.
+- [`wrapWithDiv.ts`](mdc:src/command/wrapWithDiv.ts): Wraps a node with a div element.

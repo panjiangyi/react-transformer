@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Structure Guide
+
+This project is organized as follows:
+
+- The main source code is in the [`src/`](mdc:src) directory.
+  - Commands are implemented in [`src/command/`](mdc:src/command).
+  - Utility and helper functions are in [`src/lib/`](mdc:src/lib).
+  - The main extension entry point is [`src/extension.ts`](mdc:src/extension.ts).
+- Project configuration files include [`package.json`](mdc:package.json), [`tsconfig.json`](mdc:tsconfig.json), and [`pnpm-lock.yaml`](mdc:pnpm-lock.yaml).
+- Build scripts and output are in [`esbuild.js`](mdc:esbuild.js) and [`dist/`](mdc:dist).
+- Documentation is provided in [`README.md`](mdc:README.md) and [`CHANGELOG.md`](mdc:CHANGELOG.md).
+- Additional assets are in [`assets/`](mdc:assets) and [`video/`](mdc:video).
