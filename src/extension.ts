@@ -8,7 +8,10 @@ import createConditionalExpressionCommand from './command/createConditionalExpre
 import removeChildrenCommand from './command/removeChildren'
 import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
+import { onInstall } from './payment'
+import { isInTrial, setTrialStartTime } from './payment/trial'
 const createCommand = (
+  context: vscode.ExtensionContext,
   name: string,
   implementation: (
     editor: vscode.TextEditor,
@@ -19,6 +22,16 @@ const createCommand = (
   }>,
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
+    if (!isInTrial(context)) {
+      const machineId = vscode.env.machineId
+      vscode.window.showInformationMessage(`试用期已结束，请OHO支持作者！`, '复制机器码').then(selection => {
+        if (selection === '复制机器码') {
+          vscode.env.clipboard.writeText(machineId)
+          vscode.window.showInformationMessage('机器码已复制到剪贴板')
+        }
+      })
+      return
+    }
     // 获取当前活动的文本编辑器
 
     const editor = vscode.window.activeTextEditor
@@ -34,8 +47,6 @@ const createCommand = (
     // 提取行号和列号
     const document = editor.document
     const offset = document.offsetAt(position)
-
-    const fullTextRange = new vscode.Range(document.positionAt(0), document.positionAt(document.getText().length))
 
     const { code, originCodeRange } = await implementation(editor, offset)
     editor.edit(builder => {
@@ -100,14 +111,20 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(createCommand('remove_wrapper', removeWrapper))
-  context.subscriptions.push(createCommand('remove_all', removeAll))
-  context.subscriptions.push(createCommand('warp_it', wrapWithDiv))
-  context.subscriptions.push(createCommand('swap_with_next_sibling', swapWithNextSibling))
-  context.subscriptions.push(createCommand('create_forward', createForwardCommand))
-  context.subscriptions.push(createCommand('create_ampersand_expression', createAmpersandExpressionCommand))
-  context.subscriptions.push(createCommand('create_conditional_expression', createConditionalExpressionCommand))
-  context.subscriptions.push(createCommand('remove_children', removeChildrenCommand))
+  onInstall(context, () => {
+    vscode.window.showInformationMessage('感谢安装本插件！')
+    setTrialStartTime(context)
+  })
+  vscode.window.showInformationMessage('React Transformer is activated')
+  const _createCommand = createCommand.bind(null, context)
+  context.subscriptions.push(_createCommand('remove_wrapper', removeWrapper))
+  context.subscriptions.push(_createCommand('remove_all', removeAll))
+  context.subscriptions.push(_createCommand('warp_it', wrapWithDiv))
+  context.subscriptions.push(_createCommand('swap_with_next_sibling', swapWithNextSibling))
+  context.subscriptions.push(_createCommand('create_forward', createForwardCommand))
+  context.subscriptions.push(_createCommand('create_ampersand_expression', createAmpersandExpressionCommand))
+  context.subscriptions.push(_createCommand('create_conditional_expression', createConditionalExpressionCommand))
+  context.subscriptions.push(_createCommand('remove_children', removeChildrenCommand))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.showRefactorMenu', showRefactorMenu))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.show_machine_id', showMachineId))
   context.subscriptions.push(
@@ -122,4 +139,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  vscode.window.showInformationMessage('React Transformer is deactivated')
+}
