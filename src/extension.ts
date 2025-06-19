@@ -22,16 +22,6 @@ const createCommand = (
   }>,
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
-    if (!isInTrial(context)) {
-      const machineId = vscode.env.machineId
-      vscode.window.showInformationMessage(`试用期已结束，请OHO支持作者！`, '复制机器码').then(selection => {
-        if (selection === '复制机器码') {
-          vscode.env.clipboard.writeText(machineId)
-          vscode.window.showInformationMessage('机器码已复制到剪贴板')
-        }
-      })
-      return
-    }
     // 获取当前活动的文本编辑器
 
     const editor = vscode.window.activeTextEditor
@@ -113,7 +103,6 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
 export function activate(context: vscode.ExtensionContext) {
   onInstall(context, () => {
     vscode.window.showInformationMessage('感谢安装本插件！')
-    setTrialStartTime(context)
   })
   vscode.window.showInformationMessage('React Transformer is activated')
   const _createCommand = createCommand.bind(null, context)
@@ -136,7 +125,6 @@ export function activate(context: vscode.ExtensionContext) {
       },
     ),
   )
-  initTrialStatusBar(context)
 }
 
 // This method is called when your extension is deactivated
