@@ -24,11 +24,7 @@ const wrapWithDiv = async (editor: vscode.TextEditor, start: number) => {
           editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end),
         )
-        if (ts.isParenthesizedExpression(parent)) {
-          newNode = createWrap(tagName, [node])
-        } else if (isElement(parent)) {
-          newNode = createWrap(tagName, [node])
-        }
+        newNode = createWrap(tagName, [node])
       }
     }
   }
