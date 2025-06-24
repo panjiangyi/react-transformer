@@ -10,6 +10,7 @@ import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
 import { onInstall } from './payment'
 import { Selection } from './def'
+import { getSourceFileFromString } from './lib/getSourceFile'
 const createCommand = (
   context: vscode.ExtensionContext,
   name: string,

@@ -1,5 +1,5 @@
 export type Selection = {
-  selectedText?: string
-  selectionStartOffset?: number
-  selectionEndOffset?: number
+  selectedText: string
+  selectionStartOffset: number
+  selectionEndOffset: number
 }

@@ -3,13 +3,29 @@ import ts, { factory } from 'typescript'
 import transformSourceFileWithVisitor from '../lib/transformSourceFileWithVisitor'
 import { createWrap } from '../lib/wrap-creator'
 import { printNode } from '../lib/printNode'
-import { getSourceFile } from '../lib/getSourceFile'
+import { getSourceFile, getSourceFileFromString } from '../lib/getSourceFile'
 import { createAmpersandExpression } from '../lib/createAmpersandExpression'
 import { isElement } from '../lib/isElement'
+import { Selection } from '../def'
 
-const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start: number) => {
+const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start: number, extra?: Selection) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
+  if (extra != null && extra.selectedText != null) {
+    const sourceFile = getSourceFileFromString(extra.selectedText)
+    // @ts-expect-error
+    const hasMultipleChildren = ts.isBinaryExpression(sourceFile.statements[0].expression)
+    const selectedText = hasMultipleChildren ? `<>${extra.selectedText}</>` : extra.selectedText
+    return {
+      code: `
+      {__placeholder__ && ${selectedText}}
+      `,
+      originCodeRange: new vscode.Range(
+        editor.document.positionAt(extra.selectionStartOffset),
+        editor.document.positionAt(extra.selectionEndOffset),
+      ),
+    }
+  }
   const getCallback = () => {
     let found = false
     return (parent: ts.Node, node: ts.Node) => {
