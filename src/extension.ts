@@ -9,13 +9,14 @@ import removeChildrenCommand from './command/removeChildren'
 import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
 import { onInstall } from './payment'
-import { isInTrial, setTrialStartTime, getTrialRemainingTime, initTrialStatusBar } from './payment/trial'
+import { Selection } from './def'
 const createCommand = (
   context: vscode.ExtensionContext,
   name: string,
   implementation: (
     editor: vscode.TextEditor,
     offset: number,
+    extra?: Selection,
   ) => Promise<{
     code: string
     originCodeRange: vscode.Range
@@ -30,15 +31,25 @@ const createCommand = (
       return
     }
 
-    // const sourceCode = editor.document.getText();
-    // 获取光标位置
+    // 获取光标位置和选区
     const position = editor.selection.active
-
-    // 提取行号和列号
+    const selection = editor.selection
     const document = editor.document
     const offset = document.offsetAt(position)
 
-    const { code, originCodeRange } = await implementation(editor, offset)
+    let extra = undefined
+    if (!selection.isEmpty) {
+      const selectedText = document.getText(selection)
+      const selectionStartOffset = document.offsetAt(selection.start)
+      const selectionEndOffset = document.offsetAt(selection.end)
+      extra = {
+        selectedText,
+        selectionStartOffset,
+        selectionEndOffset,
+      }
+    }
+
+    const { code, originCodeRange } = await implementation(editor, offset, extra)
     editor.edit(builder => {
       builder.replace(originCodeRange, code)
     })
