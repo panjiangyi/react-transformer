@@ -34,7 +34,7 @@ const wrapWithDiv = async (editor: vscode.TextEditor, start: number, extra?: Sel
       if (found) {
         return
       }
-      if (isElement(node)) {
+      if (isElement(node) || ts.isJsxExpression(node)) {
         found = true
         originCodeRange = new vscode.Range(
           editor.document.positionAt(node.getStart(getSourceFile(editor))),

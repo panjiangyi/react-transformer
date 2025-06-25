@@ -14,7 +14,7 @@ const swapWithNextSibling = async (editor: vscode.TextEditor, start: number) => 
       if (swapped) {
         return
       }
-      if (isElement(node) && ts.isJsxElement(parent)) {
+      if ((isElement(node) || ts.isJsxExpression(node)) && ts.isJsxElement(parent)) {
         // Find the index of the node in parent's children
         const idx = parent.children.findIndex(child => child === node)
         if (idx !== -1 && idx < parent.children.length - 1) {
