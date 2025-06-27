@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { getMachineId } from '../lib/machineId'
+import { getMachineId } from '../paywall/machineId'
 
 export default async function showMachineId() {
   const machineId = getMachineId()

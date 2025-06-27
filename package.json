@@ -132,6 +132,8 @@
     "vsce": "^2.15.0"
   },
   "dependencies": {
+    "macaddress": "^0.5.3",
+    "node-rsa": "^1.1.1",
     "dotenv": "^16.5.0",
     "lodash": "^4.17.21"
   }
