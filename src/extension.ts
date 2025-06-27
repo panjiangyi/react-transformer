@@ -10,7 +10,6 @@ import showMachineId from './command/showMachineId'
 import './lib/loadEnv'
 import { onInstall } from './payment'
 import { Selection } from './def'
-import { getSourceFileFromString } from './lib/getSourceFile'
 import { isPaid, promptAndSaveActivationCode } from './paywall/activationCode'
 import showActivationCode from './command/showActivationCode'
 import showActivationStatus from './command/showActivationStatus'
@@ -22,10 +21,14 @@ const createCommand = (
     editor: vscode.TextEditor,
     offset: number,
     extra?: Selection,
-  ) => Promise<{
-    code: string
-    originCodeRange: vscode.Range
-  }>,
+  ) => Promise<
+    | {
+        code: string
+        originCodeRange: vscode.Range
+      }
+    | null
+    | undefined
+  >,
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
     if (name !== 'warp_it') {
@@ -60,12 +63,14 @@ const createCommand = (
       }
     }
 
-    const { code, originCodeRange } = await implementation(context, editor, offset, extra)
+    const result = await implementation(context, editor, offset, extra)
+    if (result == null) {
+      return
+    }
+    const { code, originCodeRange } = result
     editor.edit(builder => {
       builder.replace(originCodeRange, code)
     })
-
-    vscode.commands.executeCommand('editor.action.formatDocument')
   })
 }
 
@@ -126,7 +131,6 @@ export function activate(context: vscode.ExtensionContext) {
   onInstall(context, () => {
     vscode.window.showInformationMessage('感谢安装本插件！')
   })
-  vscode.window.showInformationMessage('React Transformer is activated')
   const _createCommand = createCommand.bind(null, context)
   context.subscriptions.push(_createCommand('remove_wrapper', removeWrapper))
   context.subscriptions.push(_createCommand('remove_all', removeAll))
