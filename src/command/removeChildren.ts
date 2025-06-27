@@ -3,10 +3,7 @@ import ts from 'typescript'
 import transformSourceFileWithVisitor from '../lib/transformSourceFileWithVisitor'
 import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
-import { createWrap } from '../lib/wrap-creator'
-import { isElement } from '../lib/isElement'
-
-const removeChildrenCommand = async (editor: vscode.TextEditor, start: number) => {
+const removeChildrenCommand = async (context: vscode.ExtensionContext, editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | null = null
   const getCallback = () => {

@@ -6,7 +6,12 @@ import { getSourceFile } from '../lib/getSourceFile'
 import _ from 'lodash'
 import { isElement } from '../lib/isElement'
 
-const remove = async (keepChildren: boolean, editor: vscode.TextEditor, start: number) => {
+const remove = async (
+  keepChildren: boolean,
+  context: vscode.ExtensionContext,
+  editor: vscode.TextEditor,
+  start: number,
+) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
   const getCallback = () => {

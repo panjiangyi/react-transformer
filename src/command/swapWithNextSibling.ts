@@ -5,7 +5,7 @@ import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
 import { isElement } from '../lib/isElement'
 
-const swapWithNextSibling = async (editor: vscode.TextEditor, start: number) => {
+const swapWithNextSibling = async (context: vscode.ExtensionContext, editor: vscode.TextEditor, start: number) => {
   let swapped = false
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null

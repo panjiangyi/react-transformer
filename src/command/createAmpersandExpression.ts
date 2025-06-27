@@ -8,7 +8,12 @@ import { createAmpersandExpression } from '../lib/createAmpersandExpression'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
 
-const createAmpersandExpressionCommand = async (editor: vscode.TextEditor, start: number, extra?: Selection) => {
+const createAmpersandExpressionCommand = async (
+  context: vscode.ExtensionContext,
+  editor: vscode.TextEditor,
+  start: number,
+  extra?: Selection,
+) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
   if (extra != null && extra.selectedText != null) {

@@ -7,9 +7,21 @@ import { printNode } from '../lib/printNode'
 import { getSourceFile, getSourceFileFromString } from '../lib/getSourceFile'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
+import { isPaid } from '../paywall/activationCode'
 
-const wrapWithDiv = async (editor: vscode.TextEditor, start: number, extra?: Selection) => {
+const wrapWithDiv = async (
+  context: vscode.ExtensionContext,
+  editor: vscode.TextEditor,
+  start: number,
+  extra?: Selection,
+) => {
   let tagName = await askForTag()
+  if (!(tagName === 'div' || tagName === '')) {
+    if (!(await isPaid(context))) {
+      vscode.window.showInformationMessage('请先输入激活码')
+      throw new Error('请先输入激活码')
+    }
+  }
 
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null

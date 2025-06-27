@@ -90,6 +90,20 @@
       {
         "command": "react-transformer.show_machine_id",
         "title": "显示本机机器码"
+      },
+      {
+        "command": "react-transformer.input_activation_code",
+        "title": "输入激活码"
+      },
+      {
+        "command": "react-transformer.show_activation_code",
+        "title": "显示激活码",
+        "description": "显示已保存的激活码，并提供复制按钮"
+      },
+      {
+        "command": "react-transformer.show_activation_status",
+        "title": "显示激活码状态",
+        "description": "显示当前激活码是否有效"
       }
     ]
   },
@@ -120,6 +134,7 @@
     "@types/lodash": "^4.17.17",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
+    "@types/node-rsa": "^1.1.4",
     "@types/vscode": "^1.91.0",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
@@ -132,9 +147,9 @@
     "vsce": "^2.15.0"
   },
   "dependencies": {
-    "macaddress": "^0.5.3",
-    "node-rsa": "^1.1.1",
     "dotenv": "^16.5.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "macaddress": "^0.5.3",
+    "node-rsa": "^1.1.1"
   }
 }

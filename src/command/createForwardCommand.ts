@@ -6,7 +6,7 @@ import transformSourceFileWithVisitor from '../lib/transformSourceFileWithVisito
 import { printNode } from '../lib/printNode'
 import { getSourceFile } from '../lib/getSourceFile'
 
-const createForwardCommand = async (editor: vscode.TextEditor, start: number) => {
+const createForwardCommand = async (context: vscode.ExtensionContext, editor: vscode.TextEditor, start: number) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
   const getCallback = () => {

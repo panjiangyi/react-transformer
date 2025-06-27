@@ -11,10 +11,14 @@ import './lib/loadEnv'
 import { onInstall } from './payment'
 import { Selection } from './def'
 import { getSourceFileFromString } from './lib/getSourceFile'
+import { isPaid, promptAndSaveActivationCode } from './paywall/activationCode'
+import showActivationCode from './command/showActivationCode'
+import showActivationStatus from './command/showActivationStatus'
 const createCommand = (
   context: vscode.ExtensionContext,
   name: string,
   implementation: (
+    context: vscode.ExtensionContext,
     editor: vscode.TextEditor,
     offset: number,
     extra?: Selection,
@@ -24,6 +28,12 @@ const createCommand = (
   }>,
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
+    if (name !== 'warp_it') {
+      if (!(await isPaid(context))) {
+        vscode.window.showInformationMessage('请先输入激活码')
+        return
+      }
+    }
     // 获取当前活动的文本编辑器
 
     const editor = vscode.window.activeTextEditor
@@ -50,7 +60,7 @@ const createCommand = (
       }
     }
 
-    const { code, originCodeRange } = await implementation(editor, offset, extra)
+    const { code, originCodeRange } = await implementation(context, editor, offset, extra)
     editor.edit(builder => {
       builder.replace(originCodeRange, code)
     })
@@ -128,6 +138,17 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(_createCommand('remove_children', removeChildrenCommand))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.showRefactorMenu', showRefactorMenu))
   context.subscriptions.push(vscode.commands.registerCommand('react-transformer.show_machine_id', showMachineId))
+  context.subscriptions.push(
+    vscode.commands.registerCommand('react-transformer.input_activation_code', () =>
+      promptAndSaveActivationCode(context),
+    ),
+  )
+  context.subscriptions.push(
+    vscode.commands.registerCommand('react-transformer.show_activation_code', () => showActivationCode(context)),
+  )
+  context.subscriptions.push(
+    vscode.commands.registerCommand('react-transformer.show_activation_status', () => showActivationStatus(context)),
+  )
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(
       ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],

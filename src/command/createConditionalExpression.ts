@@ -8,7 +8,12 @@ import { createConditionalExpression } from '../lib/createConditionalExpression'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
 
-const createConditionalExpressionCommand = async (editor: vscode.TextEditor, start: number, extra?: Selection) => {
+const createConditionalExpressionCommand = async (
+  context: vscode.ExtensionContext,
+  editor: vscode.TextEditor,
+  start: number,
+  extra?: Selection,
+) => {
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
   if (extra != null && extra.selectedText != null) {
