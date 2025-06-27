@@ -1,8 +1,15 @@
 {
   "name": "react-transformer",
-  "displayName": "react-transformer",
-  "description": "",
+  "publisher": "James Pan",
+  "displayName": "React Transformer",
+  "description": "支持 JSX 结构的多种快捷操作，包括用新标签包裹、与兄弟节点交换、创建 forwardRef、移除包裹标签、批量移除内容、创建 & 表达式、条件表达式等。旨在提升 React 开发效率，简化常见的组件结构调整和重构流程。",
   "version": "0.0.1",
+  "icon": "assets/icon.png",
+  "author": {
+    "name": "James Pan",
+    "email": "panjiang@gmail.com",
+    "wechat": "panjiang"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/react-transformer/react-transformer.git"
@@ -11,6 +18,9 @@
     "vscode": "^1.91.0"
   },
   "categories": [
+    "Refactoring",
+    "Programming Languages",
+    "Snippets",
     "Other"
   ],
   "activationEvents": [
