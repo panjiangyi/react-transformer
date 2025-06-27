@@ -1,6 +1,6 @@
 import ts, { factory, JsxChild } from 'typescript'
 
-const createPropertyAccessExpression = (...args: string[]) => {
+const createPropertyAccessExpression = (...args: string[]): ts.Expression => {
   const argsCopy = [...args]
   if (args.length <= 0) {
     throw new Error('args is empty')
@@ -31,7 +31,7 @@ export const createWrap = (tag: string | null | undefined, children: Array<JsxCh
     )
   }
   const tags = tag.split('.')
-  const tagElement = createPropertyAccessExpression(...tags)
+  const tagElement = createPropertyAccessExpression(...tags) as ts.JsxTagNameExpression
   return factory.createJsxElement(
     factory.createJsxOpeningElement(tagElement, undefined, factory.createJsxAttributes([])),
     children,
