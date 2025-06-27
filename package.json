@@ -53,57 +53,55 @@
     "commands": [
       {
         "command": "react-transformer.warp_it",
-        "title": "用新标签包裹（默认：Fragment）"
+        "title": "react transformer:用新标签包裹（默认：Fragment）"
       },
       {
         "command": "react-transformer.swap_with_next_sibling",
-        "title": "与下一个兄弟节点交换"
+        "title": "react transformer:与下一个兄弟节点交换"
       },
       {
         "command": "react-transformer.create_forward",
-        "title": "创建 forward ref"
+        "title": "react transformer:创建 forward ref"
       },
       {
         "command": "react-transformer.remove_wrapper",
-        "title": "移除包裹标签"
+        "title": "react transformer:移除包裹标签"
       },
       {
         "command": "react-transformer.remove_all",
-        "title": "移除所有内容"
+        "title": "react transformer:移除所有内容"
       },
       {
         "command": "react-transformer.create_ampersand_expression",
-        "title": "创建 & 表达式"
+        "title": "react transformer:创建 & 表达式"
       },
       {
         "command": "react-transformer.create_conditional_expression",
-        "title": "创建条件表达式"
+        "title": "react transformer:创建条件表达式"
       },
       {
         "command": "react-transformer.remove_children",
-        "title": "移除所有子节点"
+        "title": "react transformer:移除所有子节点"
       },
       {
         "command": "react-transformer.showRefactorMenu",
-        "title": "显示重构菜单"
+        "title": "react transformer:显示重构菜单"
       },
       {
         "command": "react-transformer.show_machine_id",
-        "title": "显示本机机器码"
+        "title": "react transformer:显示本机机器码"
       },
       {
         "command": "react-transformer.input_activation_code",
-        "title": "输入激活码"
+        "title": "react transformer:输入激活码"
       },
       {
         "command": "react-transformer.show_activation_code",
-        "title": "显示激活码",
-        "description": "显示已保存的激活码，并提供复制按钮"
+        "title": "react transformer:显示激活码"
       },
       {
         "command": "react-transformer.show_activation_status",
-        "title": "显示激活码状态",
-        "description": "显示当前激活码是否有效"
+        "title": "react transformer:显示激活码状态"
       }
     ]
   },

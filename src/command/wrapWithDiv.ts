@@ -18,8 +18,7 @@ const wrapWithDiv = async (
   let tagName = await askForTag()
   if (!(tagName === 'div' || tagName === '')) {
     if (!(await isPaid(context))) {
-      vscode.window.showInformationMessage('请先输入激活码 1')
-      // throw new Error('请先输入激活码 2')
+      vscode.window.showInformationMessage('请购买本插件，以支持作者')
       return
     }
   }

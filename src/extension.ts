@@ -33,7 +33,7 @@ const createCommand = (
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
     if (name !== 'warp_it') {
       if (!(await isPaid(context))) {
-        vscode.window.showInformationMessage('请先输入激活码')
+        vscode.window.showInformationMessage('请购买本插件，以支持作者')
         return
       }
     }
