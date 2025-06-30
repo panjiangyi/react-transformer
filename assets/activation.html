@@ -118,6 +118,7 @@
     <div class="container">
       <h1>解锁全部功能</h1>
       <div class="desc">请扫码添加微信，获取激活码，支持开发者持续优化插件！</div>
+      <div class="desc"><b>价格：30元</b></div>
       <img class="qrcode" src="wechat-qr.jpg" alt="微信二维码" />
       <div class="wechat-id-container">
         <div class="wechat-id-label">机器码：</div>
@@ -143,10 +144,8 @@
     </div>
     <script>
       const vscode = acquireVsCodeApi();
-      console.log("ccc",vscode);
       const btn = document.querySelector('#inputActivationCode')
       btn.addEventListener('click', () => {
-        alert('请在插件内输入激活码')
         vscode.postMessage({ command: 'inputActivationCode' })
       })
     
