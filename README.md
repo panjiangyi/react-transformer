@@ -47,23 +47,23 @@ All commands are available in the editor context menu when editing JavaScript/Ty
 
 ### 1. Wrap with new tag
 
-![Wrap with new tag demo](assets/wrap-with-tag.gif)
+![Wrap with new tag demo](https://gitee.com/Mogician301/react-transformer/raw/master/wrap-with-tag.gif)
 
 ### 2. Swap with next sibling
 
-![Swap with next sibling demo](assets/swap-sibling.gif)
+![Swap with next sibling demo](https://gitee.com/Mogician301/react-transformer/raw/master/swap-sibling.gif)
 
 ### 3. Create forwardRef
 
-![Create forwardRef demo](assets/forward-ref.gif)
+![Create forwardRef demo](https://gitee.com/Mogician301/react-transformer/raw/master/forward-ref.gif)
 
 ### 4. Remove JSX element
 
-![Remove JSX demo](assets/remove-jsx.gif)
+![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/remove-jsx.gif)
 
 ### 5. Refactor Menu
 
-![Refactor Menu demo](assets/refactor-menu.gif)
+![Refactor Menu demo](https://gitee.com/Mogician301/react-transformer/raw/master/refactor-menu.gif)
 
 ---
 
@@ -116,23 +116,23 @@ All commands are available in the editor context menu when editing JavaScript/Ty
 
 ### 1. 用新标签包裹
 
-![Wrap with new tag demo](assets/wrap-with-tag.gif)
+![Wrap with new tag demo](https://gitee.com/Mogician301/react-transformer/raw/master/wrap-with-tag.gif)
 
 ### 2. 与下一个兄弟元素交换
 
-![Swap with next sibling demo](assets/swap-sibling.gif)
+![Swap with next sibling demo](https://gitee.com/Mogician301/react-transformer/raw/master/swap-sibling.gif)
 
 ### 3. 创建 forwardRef
 
-![Create forwardRef demo](assets/forward-ref.gif)
+![Create forwardRef demo](https://gitee.com/Mogician301/react-transformer/raw/master/forward-ref.gif)
 
 ### 4. 移除 JSX 元素
 
-![Remove JSX demo](assets/remove-jsx.gif)
+![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/remove-jsx.gif)
 
 ### 5. 重构菜单
 
-![Refactor Menu demo](assets/refactor-menu.gif)
+![Refactor Menu demo](https://gitee.com/Mogician301/react-transformer/raw/master/refactor-menu.gif)
 
 ---
 
