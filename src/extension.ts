@@ -13,6 +13,8 @@ import { Selection } from './def'
 import { isPaid, promptAndSaveActivationCode } from './paywall/activationCode'
 import showActivationCode from './command/showActivationCode'
 import showActivationStatus from './command/showActivationStatus'
+import { showActivationPlaceholderWebview } from './command/showActivationStatus'
+
 const createCommand = (
   context: vscode.ExtensionContext,
   name: string,
@@ -127,6 +129,34 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
   }
 }
 
+let activationStatusBarItem: vscode.StatusBarItem | undefined
+
+async function updateActivationStatusBar(context: vscode.ExtensionContext) {
+  if (!activationStatusBarItem) return
+  const paid = await isPaid(context)
+  if (paid) {
+    activationStatusBarItem.text = '$(verified) 已激活'
+    activationStatusBarItem.tooltip = 'React Transformer 已激活'
+    activationStatusBarItem.command = undefined
+    activationStatusBarItem.hide()
+  } else {
+    activationStatusBarItem.text = '$(error) 未激活React Transformer'
+    activationStatusBarItem.tooltip = '点击查看激活信息'
+    activationStatusBarItem.command = 'react-transformer.show_activation_placeholder_webview'
+  }
+  activationStatusBarItem.show()
+}
+
+function initActivationStatusBar(context: vscode.ExtensionContext) {
+  activationStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 99)
+  context.subscriptions.push(activationStatusBarItem)
+  updateActivationStatusBar(context)
+  // Optionally, poll or listen for activation changes
+  // Here, we poll every 5 seconds for demo
+  const timer = setInterval(() => updateActivationStatusBar(context), 5000)
+  context.subscriptions.push({ dispose: () => clearInterval(timer) })
+}
+
 export function activate(context: vscode.ExtensionContext) {
   onInstall(context, () => {
     vscode.window.showInformationMessage('感谢安装本插件！')
@@ -160,6 +190,12 @@ export function activate(context: vscode.ExtensionContext) {
       {
         providedCodeActionKinds: [vscode.CodeActionKind.Refactor],
       },
+    ),
+  )
+  initActivationStatusBar(context)
+  context.subscriptions.push(
+    vscode.commands.registerCommand('react-transformer.show_activation_placeholder_webview', () =>
+      showActivationPlaceholderWebview(context),
     ),
   )
 }
