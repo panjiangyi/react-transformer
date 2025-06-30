@@ -1,4 +1,6 @@
 .vscode/**
+.env
+.env.*
 .vscode-test/**
 out/**
 node_modules/**
