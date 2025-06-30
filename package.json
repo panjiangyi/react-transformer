@@ -32,8 +32,20 @@
   "main": "./dist/extension.js",
   "contributes": {
     "keybindings": [],
+    "submenus": [
+      {
+        "id": "react-transformer.menu",
+        "label": "React Transformer"
+      }
+    ],
     "menus": {
       "editor/context": [
+        {
+          "submenu": "react-transformer.menu",
+          "group": "react-transformer"
+        }
+      ],
+      "react-transformer.menu": [
         {
           "command": "react-transformer.warp_it"
         },
@@ -63,55 +75,55 @@
     "commands": [
       {
         "command": "react-transformer.warp_it",
-        "title": "react transformer:用新标签包裹（默认：Fragment）"
+        "title": "用新标签包裹（默认：Fragment）"
       },
       {
         "command": "react-transformer.swap_with_next_sibling",
-        "title": "react transformer:与下一个兄弟节点交换"
+        "title": "与下一个兄弟节点交换"
       },
       {
         "command": "react-transformer.create_forward",
-        "title": "react transformer:创建 forward ref"
+        "title": "创建 forward ref"
       },
       {
         "command": "react-transformer.remove_wrapper",
-        "title": "react transformer:移除包裹标签"
+        "title": "移除包裹标签"
       },
       {
         "command": "react-transformer.remove_all",
-        "title": "react transformer:移除所有内容"
+        "title": "移除所有内容"
       },
       {
         "command": "react-transformer.create_ampersand_expression",
-        "title": "react transformer:创建 & 表达式"
+        "title": "创建 & 表达式"
       },
       {
         "command": "react-transformer.create_conditional_expression",
-        "title": "react transformer:创建条件表达式"
+        "title": "创建条件表达式"
       },
       {
         "command": "react-transformer.remove_children",
-        "title": "react transformer:移除所有子节点"
+        "title": "移除所有子节点"
       },
       {
         "command": "react-transformer.showRefactorMenu",
-        "title": "react transformer:显示重构菜单"
+        "title": "显示重构菜单"
       },
       {
         "command": "react-transformer.show_machine_id",
-        "title": "react transformer:显示本机机器码"
+        "title": "显示本机机器码"
       },
       {
         "command": "react-transformer.input_activation_code",
-        "title": "react transformer:输入激活码"
+        "title": "输入激活码"
       },
       {
         "command": "react-transformer.show_activation_code",
-        "title": "react transformer:显示激活码"
+        "title": "显示激活码"
       },
       {
         "command": "react-transformer.show_activation_status",
-        "title": "react transformer:显示激活码状态"
+        "title": "显示激活码状态"
       }
     ]
   },
