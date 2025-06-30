@@ -134,12 +134,22 @@
         </ol>
       </div>
       <div class="wechat-id-container">微信号：<span class="wechat-id">mogician666</span></div>
-      <button class="btn" onclick="alert('请在插件内输入激活码')">我已付款，去激活</button>
+      <button class="btn" id="inputActivationCode">我已付款，去激活</button>
       <div class="notice">
         <b>注意事项：</b><br />
         激活码只能支持<strong>一台电脑</strong>。<br />
         更换电脑或重装系统需要另行购买激活码。
       </div>
     </div>
+    <script>
+      const vscode = acquireVsCodeApi();
+      console.log("ccc",vscode);
+      const btn = document.querySelector('#inputActivationCode')
+      btn.addEventListener('click', () => {
+        alert('请在插件内输入激活码')
+        vscode.postMessage({ command: 'inputActivationCode' })
+      })
+    
+    </script>
   </body>
 </html>

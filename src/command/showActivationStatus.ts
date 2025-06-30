@@ -14,7 +14,9 @@ export default async function showActivationStatus(context: vscode.ExtensionCont
 
 export async function showActivationPlaceholderWebview(context: vscode.ExtensionContext) {
   const machineId = await getMachineCode()
-  const panel = vscode.window.createWebviewPanel('activationPlaceholder', '激活状态', vscode.ViewColumn.One, {})
+  const panel = vscode.window.createWebviewPanel('activationPlaceholder', '支持开发者持续优化', vscode.ViewColumn.One, {
+    enableScripts: true,
+  })
   const htmlPath = path.join(context.extensionPath, 'assets', 'activation.html')
   let html = fs.readFileSync(htmlPath, 'utf-8')
   // 处理图片等静态资源路径
@@ -23,4 +25,15 @@ export async function showActivationPlaceholderWebview(context: vscode.Extension
   )
   html = html.replace('wechat-qr.jpg', wechatQrPath.toString()).replace('{{__machince__code__}}', machineId)
   panel.webview.html = html
+
+  // 监听网页消息
+  panel.webview.onDidReceiveMessage(
+    message => {
+      if (message.command === 'inputActivationCode') {
+        vscode.commands.executeCommand('react-transformer.input_activation_code')
+      }
+    },
+    undefined,
+    [],
+  )
 }
