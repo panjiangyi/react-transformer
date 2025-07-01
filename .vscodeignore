@@ -14,3 +14,7 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+assets/*.gif
+!assets/wechat-qr.png
+!assets/icon.png
+TBD.md
