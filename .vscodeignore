@@ -17,4 +17,5 @@ vsc-extension-quickstart.md
 assets/*.gif
 !assets/wechat-qr.png
 !assets/icon.png
+video/
 TBD.md
