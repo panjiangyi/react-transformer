@@ -16,14 +16,6 @@
 
 ---
 
-## 安装
-
-1. 从 [VSCode Marketplace](https://marketplace.visualstudio.com/) 下载或安装。
-2. 打开任意包含 JSX 的 JS/TS 文件。
-3. 右键或使用命令面板访问功能。
-
----
-
 ## 命令与用法
 
 | 命令名称                                                                                | 描述                                               | 用法                                                                     |
