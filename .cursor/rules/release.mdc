@@ -1,0 +1,52 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Release Automation Guide
+
+This guide describes the steps to automate the release process for the extension, including changelog generation, version bumping, git operations, and publishing.
+
+## Steps
+
+1. **Generate `CHANGELOG.md` from commit messages**
+   - Find the previous tag and generate the changelog based on the commits between the previous tag and the new tag.
+   - Example command (using conventional-changelog):
+     ```sh
+     # Get the previous tag
+tags=$(git tag --sort=-creatordate)
+PREV_TAG=$(echo "$tags" | sed -n 2p)
+NEW_TAG=$(echo "$tags" | sed -n 1p)
+# Generate changelog for the range
+npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0 --commit-path . --from $PREV_TAG --to $NEW_TAG
+     ```
+
+2. **Update the `version` field in [`package.json`](mdc:package.json)**
+   - Bump the version number (e.g., using `npm version minor` or manually editing the file).
+   - Example command:
+     ```sh
+     npm version minor
+     ```
+
+3. **Save changes to git**
+   - Add and commit the updated files:
+     ```sh
+     git add CHANGELOG.md package.json package-lock.json
+     git commit -m "chore(release): publish new version"
+     git push
+     ```
+   - **Add a git tag** in the format `vYYYY-MM-DD` (e.g., `v2025-03-03`):
+     ```sh
+     git tag v$(date +%Y-%m-%d)
+     git push --tags
+     ```
+
+4. **Publish the extension**
+   - Run the publish script:
+     ```sh
+     npm run vscode:publish
+     ```
+
+---
+
+> This process ensures that the changelog and version are always up to date and that releases are published consistently.
