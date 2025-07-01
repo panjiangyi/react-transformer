@@ -13,7 +13,6 @@
 - **移除 JSX 元素并提升其子元素**
 - **将 JSX 转换为 && 表达式**
 - **将 JSX 转换为条件（三元）表达式**
-- **一键弹出重构菜单**
 
 ---
 
@@ -36,6 +35,10 @@
 | **Create ampersand expression**<br/>`react-transformer.create_ampersand_expression`     | 用 `{condition && <JSX>}` 包裹 JSX。               | 光标放在 JSX 内，右键选择"Create ampersand expression"，或用命令面板。   |
 | **Create conditional expression**<br/>`react-transformer.create_conditional_expression` | 用 `{condition ? <JSX> : null}` 包裹 JSX。         | 光标放在 JSX 内，右键选择"Create conditional expression"，或用命令面板。 |
 |                                                                                         |
+
+### 快捷键
+
+你可以按 **Shift + Ctrl + R** 快速打开重构菜单。
 
 ### 右键菜单
 
