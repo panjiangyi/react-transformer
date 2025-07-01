@@ -3,7 +3,7 @@
   "publisher": "jamespan",
   "displayName": "React Transformer",
   "description": "支持 JSX 结构的多种快捷操作，包括用新标签包裹、与兄弟节点交换、创建 forwardRef、移除包裹标签、批量移除内容、创建 & 表达式、条件表达式等。旨在提升 React 开发效率，简化常见的组件结构调整和重构流程。",
-  "version": "0.1.0",
+  "version": "0.0.3",
   "icon": "assets/icon.png",
   "author": {
     "name": "James Pan",
@@ -128,7 +128,7 @@
   },
   "scripts": {
     "build": "npm run compile && vsce package",
-    "vscode:publish": "npm run vscode:prepublish&& vsce publish minor",
+    "vscode:publish": "npm run vscode:prepublish&& vsce publish patch",
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
