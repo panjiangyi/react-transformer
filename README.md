@@ -56,6 +56,14 @@
 
 ![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/remove-jsx.gif)
 
+### 5.转换为条件语句
+
+![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/ampersand-expression.gif)
+
+### 6. 转换为三元表达式
+
+![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/conditional-expression.gif)
+
 ---
 
 ## 如何激活
