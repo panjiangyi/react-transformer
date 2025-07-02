@@ -42,27 +42,27 @@
 
 ### 1. 用新标签包裹
 
-![Wrap with new tag demo](https://gitee.com/Mogician301/react-transformer/raw/master/wrap-with-tag.gif)
+![Wrap with new tag demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/pKk3/600X494/assets/wrap-with-tag.gif)
 
 ### 2. 与下一个兄弟元素交换
 
-![Swap with next sibling demo](https://gitee.com/Mogician301/react-transformer/raw/master/swap-sibling.gif)
+![Swap with next sibling demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/dKTD/600X494/assets/swap-sibling.gif)
 
 ### 3. 创建 forwardRef
 
-![Create forwardRef demo](https://gitee.com/Mogician301/react-transformer/raw/master/forward-ref.gif)
+![Create forwardRef demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/ZBHv/600X494/assets/forward-ref.gif)
 
 ### 4. 移除 JSX 元素
 
-![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/remove-jsx.gif)
+![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/yLwB/600X338/assets/remove-jsx.gif)
 
 ### 5.转换为条件语句
 
-![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/ampersand-expression.gif)
+![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/hVLE/600X494/assets/ampersand-expression.gif)
 
 ### 6. 转换为三元表达式
 
-![Remove JSX demo](https://gitee.com/Mogician301/react-transformer/raw/master/conditional-expression.gif)
+![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/0uF6/600X494/assets/conditional-expression.gif)
 
 ---
 
@@ -79,7 +79,7 @@
 
 ## 联系方式
 
-![微信二维码](https://gitee.com/Mogician301/react-transformer/raw/master/wechat-qr.jpg)
+![微信二维码](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/dUe9/1083X1464/assets/wechat-qr.jpg)
 
 ## 注意事项
 
