@@ -8,22 +8,22 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Changed
 
-- **重大更新**: 将插件从付费版本转换为完全免费版本
-- 移除了所有付费墙和激活码验证逻辑
-- 所有功能现在都可以免费使用，包括自定义标签包裹功能
-- 更新许可证为 MIT 许可证
+- **Major Update**: Converted the extension from paid version to completely free version
+- Removed all paywall and activation code verification logic
+- All features are now available for free, including custom tag wrapping functionality
+- Updated license to MIT License
 
 ### Removed
 
-- 移除了激活码相关的命令和功能
-- 移除了机器码显示功能
-- 移除了付费墙相关的 UI 组件
-- 移除了付费相关的依赖包（node-rsa, macaddress 等）
+- Removed activation code related commands and features
+- Removed machine code display functionality
+- Removed paywall related UI components
+- Removed payment related dependencies (node-rsa, macaddress, etc.)
 
 ### Added
 
-- 添加了更友好的安装说明
-- 更新了 README 文档，移除了付费相关内容
+- Added more user-friendly installation instructions
+- Updated README documentation, removed payment related content
 
 ## [0.0.7] - 2024-12-XX
 

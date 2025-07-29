@@ -28,15 +28,15 @@ const createCommand = (
   >,
 ) => {
   return vscode.commands.registerCommand(`react-transformer.${name}`, async () => {
-    // 获取当前活动的文本编辑器
+    // Get the currently active text editor
 
     const editor = vscode.window.activeTextEditor
     if (editor == null) {
-      vscode.window.showInformationMessage('没有活动的文本编辑器')
+      vscode.window.showInformationMessage('No active text editor')
       return
     }
 
-    // 获取光标位置和选区
+    // Get cursor position and selection
     const position = editor.selection.active
     const selection = editor.selection
     const document = editor.document
@@ -67,17 +67,17 @@ const createCommand = (
 
 function showRefactorMenu() {
   const options = [
-    { label: '用新标签包裹（默认：Fragment）', command: 'react-transformer.warp_it' },
-    { label: '移除包裹标签', command: 'react-transformer.remove_wrapper' },
-    { label: '与下一个兄弟节点交换', command: 'react-transformer.swap_with_next_sibling' },
-    { label: '创建 forward ref', command: 'react-transformer.create_forward' },
-    { label: '创建 & 表达式', command: 'react-transformer.create_ampersand_expression' },
-    { label: '创建条件表达式', command: 'react-transformer.create_conditional_expression' },
+    { label: 'Wrap with new tag (default: Fragment)', command: 'react-transformer.warp_it' },
+    { label: 'Remove wrapper tag', command: 'react-transformer.remove_wrapper' },
+    { label: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
+    { label: 'Create forward ref', command: 'react-transformer.create_forward' },
+    { label: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
+    { label: 'Create conditional expression', command: 'react-transformer.create_conditional_expression' },
   ]
 
   vscode.window
     .showQuickPick(options, {
-      placeHolder: '选择一个重构操作',
+      placeHolder: 'Select a refactoring operation',
     })
     .then(selected => {
       if (selected) {
@@ -96,14 +96,14 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
     const actions: vscode.CodeAction[] = []
 
     const refactorings = [
-      { title: '用新标签包裹（默认：Fragment）', command: 'react-transformer.warp_it' },
-      { title: '移除包裹标签', command: 'react-transformer.remove_wrapper' },
-      { title: '移除所有内容', command: 'react-transformer.remove_all' },
-      { title: '移除所有子节点', command: 'react-transformer.remove_children' },
-      { title: '与下一个兄弟节点交换', command: 'react-transformer.swap_with_next_sibling' },
-      { title: '创建 forward ref', command: 'react-transformer.create_forward' },
-      { title: '创建 & 表达式', command: 'react-transformer.create_ampersand_expression' },
-      { title: '创建条件表达式', command: 'react-transformer.create_conditional_expression' },
+      { title: 'Wrap with new tag (default: Fragment)', command: 'react-transformer.warp_it' },
+      { title: 'Remove wrapper tag', command: 'react-transformer.remove_wrapper' },
+      { title: 'Remove all content', command: 'react-transformer.remove_all' },
+      { title: 'Remove all children', command: 'react-transformer.remove_children' },
+      { title: 'Swap with next sibling', command: 'react-transformer.swap_with_next_sibling' },
+      { title: 'Create forward ref', command: 'react-transformer.create_forward' },
+      { title: 'Create & expression', command: 'react-transformer.create_ampersand_expression' },
+      { title: 'Create conditional expression', command: 'react-transformer.create_conditional_expression' },
     ]
 
     for (const refactor of refactorings) {
@@ -120,7 +120,7 @@ class RefactorCodeActionProvider implements vscode.CodeActionProvider {
 
 export function activate(context: vscode.ExtensionContext) {
   onInstall(context, () => {
-    vscode.window.showInformationMessage('感谢安装本插件！')
+    vscode.window.showInformationMessage('Thank you for installing this extension!')
   })
   const _createCommand = createCommand.bind(null, context)
   context.subscriptions.push(_createCommand('remove_wrapper', removeWrapper))

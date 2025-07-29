@@ -2,7 +2,7 @@
   "name": "react-transformer",
   "publisher": "jamespan",
   "displayName": "React Transformer",
-  "description": "支持 JSX 结构的多种快捷操作，包括用新标签包裹、与兄弟节点交换、创建 forwardRef、移除包裹标签、批量移除内容、创建 & 表达式、条件表达式等。旨在提升 React 开发效率，简化常见的组件结构调整和重构流程。",
+  "description": "Supports various quick operations for JSX structures, including wrapping with new tags, swapping with sibling nodes, creating forwardRef, removing wrapper tags, batch removing content, creating & expressions, conditional expressions, etc. Aims to improve React development efficiency and simplify common component structure adjustments and refactoring workflows.",
   "version": "1.0.0",
   "icon": "assets/icon.png",
   "author": {
@@ -74,56 +74,51 @@
     "commands": [
       {
         "command": "react-transformer.warp_it",
-        "title": "用新标签包裹（默认：Fragment）"
+        "title": "Wrap with new tag (default: Fragment)"
       },
       {
         "command": "react-transformer.swap_with_next_sibling",
-        "title": "与下一个兄弟节点交换"
+        "title": "Swap with next sibling node"
       },
       {
         "command": "react-transformer.create_forward",
-        "title": "创建 forward ref"
+        "title": "Create forward ref"
       },
       {
         "command": "react-transformer.remove_wrapper",
-        "title": "移除包裹标签"
+        "title": "Remove wrapper tag"
       },
       {
         "command": "react-transformer.remove_all",
-        "title": "移除所有内容"
+        "title": "Remove all content"
       },
       {
         "command": "react-transformer.create_ampersand_expression",
-        "title": "创建 & 表达式"
+        "title": "Create & expression"
       },
       {
         "command": "react-transformer.create_conditional_expression",
-        "title": "创建条件表达式"
+        "title": "Create conditional expression"
       },
       {
         "command": "react-transformer.remove_children",
-        "title": "移除所有子节点"
+        "title": "Remove all child nodes"
       },
       {
         "command": "react-transformer.showRefactorMenu",
-        "title": "显示重构菜单"
+        "title": "Show refactor menu"
       }
     ]
   },
   "scripts": {
-    "build": "npm run compile && vsce package",
-    "vscode:publish": "npm run vscode:prepublish&& vsce publish patch",
-    "vscode:prepublish": "npm run package",
-    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "package": "tsc --noEmit && node esbuild.js --production && vsce package",
+    "publish": "npm run package && vsce publish",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "npm run check-types && npm run lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "check-types": "tsc --noEmit",
-    "lint": "echo 'void'",
+    "pretest": "npm run compile-tests && npm run build && npm run lint",
     "test": "vscode-test"
   },
   "devDependencies": {

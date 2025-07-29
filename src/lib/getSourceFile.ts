@@ -14,9 +14,9 @@ export const getSourceFile = (editor: vscode.TextEditor) => {
 }
 
 /**
- * 从字符串创建一个 TypeScript SourceFile 对象
- * @param code 源代码字符串
- * @param fileName 虚拟文件名，默认为 'temp.tsx'
+ * Create a TypeScript SourceFile object from a string
+ * @param code Source code string
+ * @param fileName Virtual file name, defaults to 'temp.tsx'
  * @returns ts.SourceFile
  */
 export const getSourceFileFromString = (code: string, fileName = 'temp.tsx'): ts.SourceFile => {

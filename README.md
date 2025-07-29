@@ -1,81 +1,81 @@
 # React Transformer
 
-一个强大的 VSCode 扩展，助你高效重构和转换 React (JSX/TSX) 代码！  
-一键重构、包裹、交换、转换 JSX 元素。
+A powerful VSCode extension that helps you efficiently refactor and transform React (JSX/TSX) code!  
+One-click refactoring, wrapping, swapping, and transforming JSX elements.
 
 ---
 
-## 功能
+## Features
 
-- **用任意标签包裹 JSX**（默认 Fragment）
-- **与下一个兄弟 JSX 元素交换位置**
-- **创建 forwardRef 包裹**
-- **移除 JSX 元素并提升其子元素**
-- **将 JSX 转换为 && 表达式**
-- **将 JSX 转换为条件（三元）表达式**
+- **Wrap JSX with any tag** (default Fragment)
+- **Swap position with next sibling JSX element**
+- **Create forwardRef wrapper**
+- **Remove JSX element and promote its children**
+- **Convert JSX to && expression**
+- **Convert JSX to conditional (ternary) expression**
 
 ---
 
-## 命令与用法
+## Commands and Usage
 
-| 命令名称                                                                                | 描述                                               | 用法                                                                     |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Wrap with new tag**<br/>`react-transformer.warp_it`                                   | 用自定义标签包裹选中的 JSX 元素（默认 Fragment）。 | 光标放在 JSX 元素内，右键选择"Wrap with new tag"，或用命令面板。         |
-| **Swap with next sibling**<br/>`react-transformer.swap_with_next_sibling`               | 与下一个兄弟 JSX 元素交换位置。                    | 光标放在 JSX 元素内，右键选择"Swap with next sibling"，或用命令面板。    |
-| **Create forward**<br/>`react-transformer.create_forward`                               | 将函数组件转换为 `React.forwardRef`。              | 光标放在函数组件变量上，右键选择"Create forward"，或用命令面板。         |
-| **Remove**<br/>`react-transformer.remove`                                               | 移除选中的 JSX 元素并提升其子元素。                | 光标放在 JSX 元素内，右键选择"Remove"，或用命令面板。                    |
-| **Create ampersand expression**<br/>`react-transformer.create_ampersand_expression`     | 用 `{condition && <JSX>}` 包裹 JSX。               | 光标放在 JSX 内，右键选择"Create ampersand expression"，或用命令面板。   |
-| **Create conditional expression**<br/>`react-transformer.create_conditional_expression` | 用 `{condition ? <JSX> : null}` 包裹 JSX。         | 光标放在 JSX 内，右键选择"Create conditional expression"，或用命令面板。 |
+| Command Name                                                                            | Description                                                   | Usage                                                                                                         |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Wrap with new tag**<br/>`react-transformer.warp_it`                                   | Wrap selected JSX element with custom tag (default Fragment). | Place cursor inside JSX element, right-click and select "Wrap with new tag", or use command palette.          |
+| **Swap with next sibling**<br/>`react-transformer.swap_with_next_sibling`               | Swap position with next sibling JSX element.                  | Place cursor inside JSX element, right-click and select "Swap with next sibling", or use command palette.     |
+| **Create forward**<br/>`react-transformer.create_forward`                               | Convert function component to `React.forwardRef`.             | Place cursor on function component variable, right-click and select "Create forward", or use command palette. |
+| **Remove**<br/>`react-transformer.remove`                                               | Remove selected JSX element and promote its children.         | Place cursor inside JSX element, right-click and select "Remove", or use command palette.                     |
+| **Create ampersand expression**<br/>`react-transformer.create_ampersand_expression`     | Wrap JSX with `{condition && <JSX>}`.                         | Place cursor inside JSX, right-click and select "Create ampersand expression", or use command palette.        |
+| **Create conditional expression**<br/>`react-transformer.create_conditional_expression` | Wrap JSX with `{condition ? <JSX> : null}`.                   | Place cursor inside JSX, right-click and select "Create conditional expression", or use command palette.      |
 |                                                                                         |
 
-### 快捷键
+### Keyboard Shortcuts
 
-你可以按 **Shift + Ctrl + R** 快速打开重构菜单。
+You can press **Shift + Ctrl + R** to quickly open the refactor menu.
 
-### 右键菜单
+### Right-click Menu
 
-所有命令在编辑 React 文件时均可通过右键菜单访问。
+All commands are accessible via right-click menu when editing React files.
 
 ---
 
-## 示例
+## Examples
 
-### 1. 用新标签包裹
+### 1. Wrap with new tag
 
 ![Wrap with new tag demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/pKk3/600X494/assets/wrap-with-tag.gif)
 
-### 2. 与下一个兄弟元素交换
+### 2. Swap with next sibling element
 
 ![Swap with next sibling demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/dKTD/600X494/assets/swap-sibling.gif)
 
-### 3. 创建 forwardRef
+### 3. Create forwardRef
 
 ![Create forwardRef demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/ZBHv/600X494/assets/forward-ref.gif)
 
-### 4. 移除 JSX 元素
+### 4. Remove JSX element
 
 ![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/yLwB/600X338/assets/remove-jsx.gif)
 
-### 5.转换为条件语句
+### 5. Convert to conditional statement
 
 ![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/hVLE/600X494/assets/ampersand-expression.gif)
 
-### 6. 转换为三元表达式
+### 6. Convert to ternary expression
 
 ![Remove JSX demo](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/0uF6/600X494/assets/conditional-expression.gif)
 
 ---
 
-## 安装
+## Installation
 
-1. 在 VS Code 中打开扩展面板 (Ctrl+Shift+X)
-2. 搜索 "React Transformer"
-3. 点击安装即可
+1. Open the Extensions panel in VS Code (Ctrl+Shift+X)
+2. Search for "React Transformer"
+3. Click Install
 
-## 支持
+## Support
 
-如果你喜欢这个插件，请给个 ⭐️ 支持一下！
+If you like this extension, please give it a ⭐️ for support!
 
-## 许可证
+## License
 
 MIT License
