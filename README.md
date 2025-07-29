@@ -66,22 +66,16 @@
 
 ---
 
-## 如何激活
+## 安装
 
-**价格：30 元**
+1. 在 VS Code 中打开扩展面板 (Ctrl+Shift+X)
+2. 搜索 "React Transformer"
+3. 点击安装即可
 
-1. 扫码添加微信 **mogician666**
-2. 向开发者支付 30 元
-3. 把机器码发给开发者
-4. 开发者根据机器码发送激活码
-5. 搜索"输入激活码"命令，输入激活码
-6. 激活成功后，畅享全部高级功能！
+## 支持
 
-## 联系方式
+如果你喜欢这个插件，请给个 ⭐️ 支持一下！
 
-![微信二维码](https://tc.z.wiki/autoupload/zaULi4JOscQ5PNU-6EE30DL8PHO0F-8EkaRRFSZtoNuyl5f0KlZfm6UsKj-HyTuv/20250702/dUe9/1083X1464/assets/wechat-qr.jpg)
+## 许可证
 
-## 注意事项
-
-- 激活码只能支持**一台电脑**。
-- 更换电脑或重装系统需要另行购买激活码。
+MIT License

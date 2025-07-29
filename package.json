@@ -3,7 +3,7 @@
   "publisher": "jamespan",
   "displayName": "React Transformer",
   "description": "支持 JSX 结构的多种快捷操作，包括用新标签包裹、与兄弟节点交换、创建 forwardRef、移除包裹标签、批量移除内容、创建 & 表达式、条件表达式等。旨在提升 React 开发效率，简化常见的组件结构调整和重构流程。",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "icon": "assets/icon.png",
   "author": {
     "name": "James Pan",
@@ -107,22 +107,6 @@
       {
         "command": "react-transformer.showRefactorMenu",
         "title": "显示重构菜单"
-      },
-      {
-        "command": "react-transformer.show_machine_id",
-        "title": "显示本机机器码"
-      },
-      {
-        "command": "react-transformer.input_activation_code",
-        "title": "输入激活码"
-      },
-      {
-        "command": "react-transformer.show_activation_code",
-        "title": "显示激活码"
-      },
-      {
-        "command": "react-transformer.show_activation_status",
-        "title": "显示激活码状态"
       }
     ]
   },
@@ -154,7 +138,6 @@
     "@types/lodash": "^4.17.17",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
-    "@types/node-rsa": "^1.1.4",
     "@types/vscode": "^1.91.0",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
@@ -168,8 +151,6 @@
   },
   "dependencies": {
     "dotenv": "^16.5.0",
-    "lodash": "^4.17.21",
-    "macaddress": "^0.5.3",
-    "node-rsa": "^1.1.1"
+    "lodash": "^4.17.21"
   }
 }

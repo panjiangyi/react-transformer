@@ -7,7 +7,6 @@ import { printNode } from '../lib/printNode'
 import { getSourceFile, getSourceFileFromString } from '../lib/getSourceFile'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
-import { isPaid } from '../paywall/activationCode'
 
 const wrapWithDiv = async (
   context: vscode.ExtensionContext,
@@ -16,12 +15,6 @@ const wrapWithDiv = async (
   extra?: Selection,
 ) => {
   let tagName = await askForTag()
-  if (!(tagName === 'div' || tagName === '')) {
-    if (!(await isPaid(context))) {
-      vscode.window.showInformationMessage('请购买本插件，以支持作者')
-      return
-    }
-  }
 
   let originCodeRange: vscode.Range | null = null
   let newNode: ts.Node | ts.Node[] | null = null
