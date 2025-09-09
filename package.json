@@ -122,14 +122,6 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@babel/generator": "^7.25.0",
-    "@babel/parser": "^7.25.0",
-    "@babel/template": "^7.25.0",
-    "@babel/traverse": "^7.25.0",
-    "@babel/types": "^7.25.0",
-    "@types/babel__generator": "^7.6.8",
-    "@types/babel__template": "^7.4.4",
-    "@types/babel__traverse": "^7.20.6",
     "@types/lodash": "^4.17.17",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
