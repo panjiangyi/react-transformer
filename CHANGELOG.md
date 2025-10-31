@@ -4,6 +4,12 @@ All notable changes to the "react-transformer" extension will be documented in t
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.2] - 2025-10-31
+
+### Fixed
+
+- Prevent nested JSX wrappers when generating conditional or ampersand expressions inside existing `{}` blocks.
+
 ## [1.0.0] - 2025-01-27
 
 ### Changed

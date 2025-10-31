@@ -3,7 +3,7 @@
   "publisher": "jamespan",
   "displayName": "React Transformer",
   "description": "Supports various quick operations for JSX structures, including wrapping with new tags, swapping with sibling nodes, creating forwardRef, removing wrapper tags, batch removing content, creating & expressions, conditional expressions, etc. Aims to improve React development efficiency and simplify common component structure adjustments and refactoring workflows.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icon": "assets/icon.png",
   "author": {
     "name": "James Pan",
