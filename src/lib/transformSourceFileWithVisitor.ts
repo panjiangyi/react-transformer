@@ -10,6 +10,7 @@ async function transformSourceFileWithVisitor(
   getCallback: (sourceFile: ts.SourceFile) => (parent: ts.Node, node: ts.Node) => void,
 ) {
   const sourceFile = getSourceFile(editor)
+  createTreeWithParentKey(sourceFile)
   if (sourceFile != null && !sourceFile.isDeclarationFile) {
     sourceFile.forEachChild(node => {
       visitor(sourceFile, node, start, getCallback(sourceFile))

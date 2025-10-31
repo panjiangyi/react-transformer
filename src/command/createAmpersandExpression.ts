@@ -34,6 +34,7 @@ const createAmpersandExpressionCommand = async (
   const getCallback = () => {
     let found = false
     return (parent: ts.Node, node: ts.Node) => {
+      console.log('fff', node.__parent__)
       if (found) {
         return
       }
