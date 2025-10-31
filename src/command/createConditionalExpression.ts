@@ -7,6 +7,7 @@ import { getSourceFile, getSourceFileFromString } from '../lib/getSourceFile'
 import { createConditionalExpression } from '../lib/createConditionalExpression'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
+import getClosestAncestorJsxKind from '../lib/getClosestAncestorJsxKind'
 
 const createConditionalExpressionCommand = async (
   context: vscode.ExtensionContext,
@@ -43,14 +44,17 @@ const createConditionalExpressionCommand = async (
       }
       if (isElement(node)) {
         found = true
-        newNode = createConditionalExpression('__placeholder__', node)
+        const alreadyHasConditional = getClosestAncestorJsxKind(node) === 'jsxExpression'
+        newNode = createConditionalExpression(alreadyHasConditional, '__placeholder__', node)
         originCodeRange = new vscode.Range(
           editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end),
         )
       } else if (ts.isJsxText(node)) {
         found = true
+        const alreadyHasConditional = getClosestAncestorJsxKind(node) === 'jsxExpression'
         newNode = createConditionalExpression(
+          alreadyHasConditional,
           '__placeholder__',
           factory.createJsxFragment(factory.createJsxOpeningFragment(), [node], factory.createJsxJsxClosingFragment()),
         )
