@@ -7,6 +7,7 @@ import { getSourceFile, getSourceFileFromString } from '../lib/getSourceFile'
 import { createAmpersandExpression } from '../lib/createAmpersandExpression'
 import { isElement } from '../lib/isElement'
 import { Selection } from '../def'
+import getClosestAncestorJsxKind from '../lib/getClosestAncestorJsxKind'
 
 const createAmpersandExpressionCommand = async (
   context: vscode.ExtensionContext,
@@ -40,14 +41,18 @@ const createAmpersandExpressionCommand = async (
       }
       if (isElement(node)) {
         found = true
-        newNode = createAmpersandExpression('__placeholder__', node)
+
+        const alreadyHasAmpersand = getClosestAncestorJsxKind(node) === 'jsxExpression'
+        newNode = createAmpersandExpression(alreadyHasAmpersand, '__placeholder__', node)
         originCodeRange = new vscode.Range(
           editor.document.positionAt(node.getStart(getSourceFile(editor))),
           editor.document.positionAt(node.end),
         )
       } else if (ts.isJsxText(node)) {
         found = true
+        const alreadyHasAmpersand = getClosestAncestorJsxKind(node) === 'jsxExpression'
         newNode = createAmpersandExpression(
+          alreadyHasAmpersand,
           '__placeholder__',
           factory.createJsxFragment(factory.createJsxOpeningFragment(), [node], factory.createJsxJsxClosingFragment()),
         )
